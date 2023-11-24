@@ -1,0 +1,160 @@
+:root{
+    --white-color:#fff;
+    --black-color:#000;
+    --text-color:#333;
+    --border-color:#dbdbdb;
+    --mainstream-color:#938715;
+}
+
+*{
+    box-sizing: inherit;
+}
+
+html{
+    font-size:62.5%;
+    line-height: 1.6rem;
+    font-family: 'HarmoniaSemiLight';
+    box-sizing: border-box;
+}
+
+.grid{
+    width:100%;
+    height:160px;
+    max-width: 100%;
+    margin:0 auto;
+}
+
+.grid__full-width{
+    width:100%;
+}
+
+.grid__row{
+    display:flex;
+    flex-wrap: wrap;
+}
+
+/* Animation */
+@keyframes fadeIn{
+    from{
+        opacity:0;
+    }
+    to{
+        opacity:1;
+    }
+}
+@keyframes growth{
+    form{
+       tranform:scale(var(--growth-form));
+    }
+    to
+    {
+            tranform:scale(var(--growth-to));
+    }
+}
+@keyframes slide{
+    0%{
+        left:0;
+    }
+    10%{
+        left:-0%;
+    }
+    20%{
+        left:-100%;
+    }
+    30%{
+        left:-100%;
+    }
+    40%{
+        left:-200%;
+    }
+    50%{
+        left:-200%;
+    }
+    55%{
+        left:-300%;
+    }
+    65%{
+        left:-300%;
+    }
+    66%{
+        left:-200%;
+    }
+    74%{
+        left:-200%;
+    }
+    75%{
+        left:-100%;
+    }
+    85%{
+        left:-100%;
+    }
+    90%{
+        left:0;
+    }
+    100%{
+        left:0;
+    }
+}
+
+/* Modal  */
+.modal{
+    --growth-form:0.7;
+    --growth-to :1;
+    position: fixed;
+    bottom:0;
+    left:0;
+    right: 0;
+    top: 0;
+    display:flex;
+    animation:grwoth linear .1s;
+    display:none;
+    z-index: 500;
+}
+.modal_overlay{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background-color:rgba(0,0,0,.4);
+}
+.modal_body{
+    width:500px;
+    height:400px;
+    margin:  150px auto;
+    position:relative; 
+    z-index: 1; 
+    border-radius: 5px;
+}
+
+/* Slider */
+.slider{
+    margin:0;
+    padding:0;
+}
+
+/* Button Style  */
+.btn{
+    min-width: 142px;
+    height:34px;
+    border:none;
+    border-radius: 3px;
+    font-size:1.4rem;
+    padding:0 12px; 
+    color:var(--text-color);
+    display:flex;
+    align-items: center;
+    justify-content:center;
+
+}
+.btn.btn-normal:hover{
+    background-color: rgba(0,0,0,.05);
+}
+.btn.btn-size-s{
+    height:32px;
+    font-size:12px;
+    padding:0 8px; 
+}
+
+.btn.btn-black{
+    color:var(--white-color);
+    background-color:var(--black-color);
+}

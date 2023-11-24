@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <title>Document</title>
+  <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+
+<body>
+  <!-- <script src="./js/main.js"></script> -->
+  <div class="container-modal">
+    <div class="container-modal-overlay"></div>
+    <div class="container-modal-form">
+      <div class="modal-form-title">Chi tiet san pham</div>
+      
+      <div class="modal-form-product-container">
+        <table class="modal-form-product">
+          <tr>
+            <th>Anh</th>
+            <th>Ten san pham</th>
+            <th>SL</th>
+            <th>Don gia</th>
+          </tr>
+          
+          <tr>
+            <td><img class="modal-form-product-img" src="" alt="image"></td>
+            <td>
+              <div class="product-detail-name"> Đồng hồ Patek Philippe Nautilus 5711/1300A-001 Mặt Số Olive 40mm</div>
+            </td>
+            <td>
+              <div class="product-detail-quantity">3</div>
+            </td>
+            <td>
+              <div class="product-detail-price-total">8.000.000.000</div>
+            </td>
+          </tr>
+
+          <tr>
+            <td><img class="modal-form-product-img" src="" alt="image"></td>
+            <td>
+              <div class="product-detail-name"> Đồng hồ Patek Philippe Nautilus 5711/1300A-001 Mặt Số Olive 40mm</div>
+            </td>
+            <td>
+              <div class="product-detail-quantity">3</div>
+            </td>
+            <td>
+              <div class="product-detail-price-total">8.000.000.000</div>
+            </td>
+          </tr>
+          
+          <tr>
+            <td><img class="modal-form-product-img" src="" alt="image"></td>
+            <td>
+              <div class="product-detail-name"> Đồng hồ Patek Philippe Nautilus 5711/1300A-001 Mặt Số Olive 40mm</div>
+            </td>
+            <td>
+              <div class="product-detail-quantity">3</div>
+            </td>
+            <td>
+              <div class="product-detail-price-total">8.000.000.000</div>
+            </td>
+          </tr>
+          
+          <tr>
+            <td><img class="modal-form-product-img" src="" alt="image"></td>
+            <td>
+              <div class="product-detail-name"> Đồng hồ Patek Philippe Nautilus 5711/1300A-001 Mặt Số Olive 40mm</div>
+            </td>
+            <td>
+              <div class="product-detail-quantity">3</div>
+            </td>
+            <td>
+              <div class="product-detail-price-total">8.000.000.000</div>
+            </td>
+          </tr>
+          
+          <tr>
+            <td><img class="modal-form-product-img" src="" alt="image"></td>
+            <td>
+              <div class="product-detail-name"> Đồng hồ Patek Philippe Nautilus 5711/1300A-001 Mặt Số Olive 40mm</div>
+            </td>
+            <td>
+              <div class="product-detail-quantity">3</div>
+            </td>
+            <td>
+              <div class="product-detail-price-total">8.000.000.000</div>
+            </td>
+          </tr>
+          
+          <tr>
+            <td><img class="modal-form-product-img" src="" alt="image"></td>
+            <td>
+              <div class="product-detail-name"> Đồng hồ Patek Philippe Nautilus 5711/1300A-001 Mặt Số Olive 40mm</div>
+            </td>
+            <td>
+              <div class="product-detail-quantity">3</div>
+            </td>
+            <td>
+              <div class="product-detail-price-total">8.000.000.000</div>
+            </td>
+          </tr>
+          
+        </table>
+      </div>
+      
+      <div class="modal-form-detail">
+        <!-- Tong tien + [Close] -->
+        <div class="modal-form-detail-bill"> Tong tien: 48.000.000.000</div>
+        <div class="modal-form-detail-close">Dong</div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div class="container">
+    <div class="container-func">
+      <h2>FIVET ADMIN</h2>
+      <div class="container-func-name">
+        
+        <span class="func-name " >
+          <i class="fa-solid fa-list"></i>
+          Quan ly san pham
+        </span>
+        
+        <span class="func-name" >
+          <i class="fa-solid fa-list"></i>
+          Quan ly don hang
+        </span>
+        
+        <span class="func-name" >
+          <i class="fa-solid fa-user"></i>
+          Quan ly khach hang
+        </span>
+        
+        <span class="func-name " >
+          <i class="fa-solid fa-right-from-bracket"></i>
+          Dang xuat
+        </span>
+        
+      </div>
+      
+    </div>
+    
+    <div class="container-display">
+      
+      <div class="display-header">
+        
+        <div class="header-title">
+          <span class="header-title-home">FIVET Admin /</span>
+          <span class="header-title-home header-title-func">Quan ly tai khoan</span>
+        </div>
+        
+        <div class="header-search">
+          <input type="text" class="header-search-box" placeholder="Tim kiem...">
+          <button class="header-search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+
+      </div>
+      
+      <div class="display-body" style="display: none;">
+        
+        <div class="display-body-title-container">
+          <p class="display-body-title">Danh sach</p>
+        </div>
+        
+        <div class="display-body-table-container">
+          <table class="display-body-table">
+            <tr>
+              <th>Tai khoan</th>
+              <th>Mat khau</th>
+              <th>Ho va ten</th>
+              <th>Quyen</th>
+              <th>Thao tac</th>
+            </tr>
+            
+            <tr>
+              <td>admin</td>
+              <td>123</td>
+              <td>admin</td>
+              <td>Admin</td>
+              <td>
+                <button class="display-body-table-btn">Xoa</button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>admin</td>
+              <td>123</td>
+              <td>admin</td>
+              <td>Admin</td>
+              <td>
+                <button class="display-body-table-btn">Xoa</button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>admin</td>
+              <td>123</td>
+              <td>admin</td>
+              <td>Admin</td>
+              <td>
+                <button class="display-body-table-btn">Xoa</button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>admin</td>
+              <td>123</td>
+              <td>admin</td>
+              <td>Admin</td>
+              <td>
+                <button class="display-body-table-btn">Xoa</button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>admin</td>
+              <td>123</td>
+              <td>admin</td>
+              <td>Admin</td>
+              <td>
+                <button class="display-body-table-btn">Xoa</button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>admin</td>
+              <td>123</td>
+              <td>admin</td>
+              <td>Admin</td>
+              <td>
+                <button class="display-body-table-btn">Xoa</button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>admin</td>
+              <td>123</td>
+              <td>admin</td>
+              <td>Admin</td>
+              <td>
+                <button class="display-body-table-btn">Xoa</button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>admin</td>
+              <td>123</td>
+              <td>admin</td>
+              <td>Admin</td>
+              <td>
+                <button class="display-body-table-btn">Xoa</button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>admin</td>
+              <td>123</td>
+              <td>admin</td>
+              <td>Admin</td>
+              <td>
+                <button class="display-body-table-btn">Xoa</button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>098888888</td>
+              <td>88888888</td>
+              <td>Nguyen Quoc Trong</td>
+              <td>User</td>
+              <td>
+                <button class="display-body-table-btn">Xoa</button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>user2</td>
+              <td>123</td>
+              <td>user2</td>
+              <td>User</td>
+              <td>
+                <button class="display-body-table-btn">Xoa</button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>user3</td>
+              <td>123</td>
+              <td>user3</td>
+              <td>User</td>
+              <td>
+                <button class="display-body-table-btn">Xoa</button>
+              </td>
+            </tr>
+
+            <tr>
+              <td>user4</td>
+              <td>123</td>
+              <td>user4</td>
+              <td>User</td>
+              <td>
+                <button class="display-body-table-btn">Xoa</button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>user5</td>
+              <td>123</td>
+              <td>user5</td>
+              <td>User</td>
+              <td>
+                <button class="display-body-table-btn">Xoa</button>
+              </td>
+            </tr>
+            <tr>
+              <td>user1</td>
+              <td>123</td>
+              <td>user1</td>
+              <td>User</td>
+              <td>
+                <button class="display-body-table-btn">Xoa</button>
+              </td>
+            </tr>
+            <tr>
+              <td>user1</td>
+              <td>123</td>
+              <td>user1</td>
+              <td>User</td>
+              <td>
+                <button class="display-body-table-btn">Xoa</button>
+              </td>
+            </tr>
+            <tr>
+              <td>user1</td>
+              <td>123</td>
+              <td>user1</td>
+              <td>User</td>
+              <td>
+                <button class="display-body-table-btn">Xoa</button>
+              </td>
+            </tr>
+            <tr>
+              <td>user1</td>
+              <td>123</td>
+              <td>user1</td>
+              <td>User</td>
+              <td>
+                <button class="display-body-table-btn">Xoa</button>
+              </td>
+            </tr>
+          </table>
+          
+        </div>
+        
+      </div>
+      
+      <div class="display-body" style="display: none;">
+        
+        <div class="display-body-title-container">
+          <p class="display-body-title">Danh sach</p>
+          <button class="display-body-title display-body-title-btn">+</button>
+        </div>
+        
+        <div class="display-body-table-container">
+          <table class="display-body-table">
+            <tr>
+              <th>ID</th>
+              <th>San pham</th>
+              <th>Don gia</th>
+              <th>Hang</th>
+              <th>Thao tac</th>
+            </tr>
+            
+            <tr>
+              <td>1</td>
+              <td>Đồng hồ Patek Philippe Nautilus 5711/1300A-001 Mặt Số Olive 40mm</td>
+              <td>3.200.000.000</td>
+              <td>Patek Philippe</td>
+              <td>
+                <button class="display-body-table-btn">Sua</button>
+                <button class="display-body-table-btn">Xoa</button>
+              </td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>Đồng hồ Patek Philippe Nautilus 5711/1300A-001 Mặt Số Olive 40mm</td>
+              <td>3.200.000.000</td>
+              <td>Patek Philippe</td>
+              <td>
+                <button class="display-body-table-btn">Sua</button>
+                <button class="display-body-table-btn">Xoa</button>
+              </td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>Đồng hồ Patek Philippe Nautilus 5711/1300A-001 Mặt Số Olive 40mm</td>
+              <td>3.200.000.000</td>
+              <td>Patek Philippe</td>
+              <td>
+                <button class="display-body-table-btn">Sua</button>
+                <button class="display-body-table-btn">Xoa</button>
+              </td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>Đồng hồ Patek Philippe Nautilus 5711/1300A-001 Mặt Số Olive 40mm</td>
+              <td>3.200.000.000</td>
+              <td>Patek Philippe</td>
+              
+              <td>
+                <button class="display-body-table-btn">Sua</button>
+                <button class="display-body-table-btn">Xoa</button>
+              </td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>Đồng hồ Patek Philippe Nautilus 5711/1300A-001 Mặt Số Olive 40mm</td>
+              <td>3.200.000.000</td>
+              <td>Patek Philippe</td>
+              <td>
+                <button class="display-body-table-btn">Sua</button>
+                <button class="display-body-table-btn">Xoa</button>
+              </td>
+            </tr>
+
+          </table>
+        </div>
+      </div>
+
+      <div class="display-body" style="display: none;">
+
+        <div class="display-body-title-container">
+          <p class="display-body-title">Danh sach</p>
+        </div>
+
+        <div class="display-body-table-container">
+          <table class="display-body-table">
+            <tr>
+              <th>ID</th>
+              <th>SDT</th>
+              <th>Thoi gian</th>
+              <th>Trang thai</th>
+              <th>Thao tac</th>
+            </tr>
+
+            <tr>
+              <td>1</td>
+              <td>0988888888</td>
+              <td>01-01-2023</td>
+              <td>Cho xac nhan</td>
+              <td>
+                <button class="display-body-table-btn display-body-table-btn-detail">Chi tiet</button>
+                <button class="display-body-table-btn">Xac nhan</button>
+                <button class="display-body-table-btn">Huy</button>
+              </td>
+            </tr>
+
+            <tr>
+              <td>1</td>
+              <td>0988888888</td>
+              <td>01-01-2023</td>
+              <td>Cho xac nhan</td>
+              <td>
+                <button class="display-body-table-btn display-body-table-btn-detail">Chi tiet</button>
+                <button class="display-body-table-btn">Xac nhan</button>
+                <button class="display-body-table-btn">Huy</button>
+              </td>
+            </tr>
+
+            <tr>
+              <td>1</td>
+              <td>0988888888</td>
+              <td>01-01-2023</td>
+              <td>Cho xac nhan</td>
+              <td>
+                <button class="display-body-table-btn display-body-table-btn-detail">Chi tiet</button>
+                <button class="display-body-table-btn">Xac nhan</button>
+                <button class="display-body-table-btn">Huy</button>
+              </td>
+            </tr>
+
+            <tr>
+              <td>1</td>
+              <td>0988888888</td>
+              <td>01-01-2023</td>
+              <td>Cho xac nhan</td>
+              <td>
+                <button class="display-body-table-btn display-body-table-btn-detail">Chi tiet</button>
+                <button class="display-body-table-btn">Xac nhan</button>
+                <button class="display-body-table-btn">Huy</button>
+              </td>
+            </tr>
+
+            <tr>
+              <td>1</td>
+              <td>0988888888</td>
+              <td>01-01-2023</td>
+              <td>Cho xac nhan</td>
+              <td>
+                <button class="display-body-table-btn display-body-table-btn-detail">Chi tiet</button>
+                <button class="display-body-table-btn">Xac nhan</button>
+                <button class="display-body-table-btn">Huy</button>
+              </td>
+            </tr>
+
+            <tr>
+              <td>1</td>
+              <td>0988888888</td>
+              <td>01-01-2023</td>
+              <td>Cho xac nhan</td>
+              <td>
+                <button class="display-body-table-btn display-body-table-btn-detail">Chi tiet</button>
+                <button class="display-body-table-btn">Xac nhan</button>
+                <button class="display-body-table-btn">Huy</button>
+              </td>
+            </tr>
+
+          </table>
+        </div>
+      </div>
+
+      <div class="display-footer">
+        <div class="footer-copyright">© 2023 FIVET</div>
+      </div>
+    </div>
+
+    <script src="./js/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- Định dạng lại code -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css"
+    />
+    <link rel="stylesheet" href="./assets/css/base.css" />
+    <link rel="stylesheet" href="./assets/css/main.css" />
+
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="./assets/fonts/fontawesome-free-6.4.2-web (1)/fontawesome-free-6.4.2-web/css/all.css"
+    />
+    <link rel="stylesheet" href="./assets/css/product_inf.css" />
+  </head>
+  <body>
+    <div class="app">
+      <div class="header">
+        <div class="grid">
+          <!-- Block Element Modifier -->
+          <div class="all-header">
+            <nav class="header_navbar">
+              <ul class="header_navbar-list">
+                <li
+                  style="font-family: 'Fuggles'; font-size: 30px"
+                  class="header_navbar-item header_navbar-item-has-qr header_navbar-item--saparate"
+                  onclick="Main()"
+                >
+                  FIVET
+
+                  <!-- Header QR code -->
+                  <div class="header_QR">
+                    <img
+                      src="./assets/img/Ảnh chụp màn hình 2023-09-21 135843.png"
+                      alt="3d rendering of an imaginary orange planet in space QR_code"
+                      class="header_QR-code"
+                    />
+                  </div>
+                </li>
+
+                <li class="header_navbar-item">
+                  <span class="header_navbar-title--no-pointer"> Kết Nối </span>
+
+                  <a href="" class="header_navbar-icon-link">
+                    <i class="header_navbar-icon fa-brands fa-facebook"></i>
+                  </a>
+
+                  <a href="" class="header_navbar-icon-link">
+                    <i class="header_navbar-icon fa-brands fa-instagram"></i>
+                  </a>
+                </li>
+              </ul>
+
+              <ul class="header_navbar-list">
+                <li class="header_navbar-logo" onclick="nextIndex()">
+                  <img
+                    src="./assets/img/Fivet_luxury-1-removebg-preview.png"
+                    alt="3d rendering of an imaginary orange planet in space logo"
+                    class="header_navbar-logo"
+                  />
+                </li>
+              </ul>
+
+              <ul class="header_navbar-list">
+                <li
+                  onclick="login()"
+                  class="header_navbar-item header_navbar-item--strong header_navbar-item--saparate button-login"
+                >
+                  Đăng nhập
+                </li>
+                <li
+                  onclick="register()"
+                  class="header_navbar-item header_navbar-item--strong button-register"
+                >
+                  Đăng kí
+                </li>
+              </ul>
+              <!-- <ul class="header_navbar-list">
+                <li class="header_navbar-list-avatar"></li>
+                <li class="header_navbar-list-username">Username</li>
+              </ul> -->
+            </nav>
+            <nav class="header_menu">
+              <ul id="main-menu">
+                <li onclick="Main()" class="main">TRANG CHỦ</li>
+                <li class="has-child">
+                  <a href="#">THƯƠNG HIỆU </a>
+
+                  <ul class="sub-menu">
+                    <li type="Hublot" class="has-child has-child-click">
+                      <a class="sub-menu_Hublot">Hubot</a>
+                      <!-- <ul class="sub-menu">
+                        <li><a href="">Hubot Big Bang</a></li>
+                        <li><a href="">Hublot Classic Fusion</a></li>
+                        <li><a href="">Hublot MP</a></li>
+                        <li><a href="">Hublot Spirit Of Big Bang</a></li>
+                      </ul> -->
+                    </li>
+
+                    <li type="Rolex" class="has-child has-child-click">
+                      <a class="sub-menu_Rolex">Rolex</a>
+                      <!-- <ul class="sub-menu">
+                        <li><a href="">Rolex Datejust</a></li>
+                        <li><a href="">Rolex Daydete</a></li>
+                        <li><a href="">Rolex Submariner</a></li>
+                        <li><a href="">Rolex Yacht-Master</a></li>
+                        <li><a href="">Rolex GMT-Master II</a></li>
+                        <li><a href="">Rolex Cosmograph Daytona</a></li>
+                        <li><a href="">Rolex Lady Datejust</a></li>
+                      </ul> -->
+                    </li>
+
+                    <li type="Patek Philippe" class="has-child has-child-click">
+                      <a class="sub-menu_PatekPhilippe">Patek Philippe</a>
+
+                      <!-- <ul class="sub-menu">
+                        <li><a href="">Patek Philippe Aquanaut</a></li>
+                        <li><a href="">Patek Philippe Nautilus</a></li>
+                        <li><a href="">Patek Philippe Complications</a></li>
+                        <li><a href="">Patek Philippe Calatrava</a></li>
+                        <li><a href="">Philippe Brand Complications</a></li>
+                      </ul> -->
+                    </li>
+
+                    <li type="RichardMille" class="has-child has-child-click">
+                      <a class="sub-menu_RichardMille">Richard Mille</a>
+
+                      <!-- <ul class="sub-menu">
+                        <li><a href="">Patek Philippe Aquanaut</a></li>
+                        <li><a href="">Patek Philippe Nautilus</a></li>
+                        <li><a href="">Patek Philippe Complications</a></li>
+                        <li><a href="">Patek Philippe Calatrava</a></li>
+                        <li><a href="">Philippe Brand Complications</a></li>
+                      </ul> -->
+                    </li>
+                  </ul>
+                </li>
+                <!-- <li class="has-child">
+                  <a href="">SẢN PHẨM</a>
+                  <ul class="sub-menu">
+                    <li><a href="">Trang sức nam</a></li>
+                    <li><a href="">Trang sức nữ</a></li>
+                    <li><a href="">Đồng hồ nam</a></li>
+                    <li><a href="">Đồng hồ nữ</a></li>
+                  </ul>
+                </li> -->
+                <!-- <li><a href="">LIÊN HỆ</a></li> -->
+                <li>
+                  <!-- Tìm kiếm  -->
+                  <ion-icon
+                    class="menu-icon menu-search"
+                    name="search"
+                  ></ion-icon>
+                </li>
+
+                <li>
+                  <!-- Giỏ hàng -->
+                  <div class="openShopping">
+                    <ion-icon
+                      class="menu-icon menu-bag"
+                      name="bag-handle"
+                    ></ion-icon>
+                    <span class="quantity">0</span>
+                  </div>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <!-- Slider  -->
+      <div class="slider">
+        <figure>
+          <div class="slide">
+            <img src="./assets/img/img-br1.jpg" alt="slide-1" />
+          </div>
+
+          <div class="slide">
+            <img src="./assets/img/img-br2.jpg" alt="slide-2" />
+          </div>
+
+          <div class="slide">
+            <img src="./assets/img/img-br3.jpg" alt="slide-3" />
+          </div>
+
+          <div class="slide">
+            <img src="./assets/img/img-br4.jpg" alt="slide-4" />
+          </div>
+        </figure>
+      </div>
+
+      <!-- Privacy -->
+      <div class="privacy-wrap">
+        <div class="privacy-container">
+          <div class="privacy-item" style="max-width: 363px">
+            <div class="privacy-icon">
+              <i class="fa-solid fa-phone"></i>
+            </div>
+            <div class="privacy-content">
+              <h3>Đặt hàng nhanh chóng</h3>
+              <span>Gọi ngay 0828 136 136 dể nhận tư vấn</span>
+            </div>
+          </div>
+
+          <div class="privacy-item" style="max-width: 363px">
+            <div class="privacy-icon">
+              <i class="fa-solid fa-medal"></i>
+            </div>
+            <div class="privacy-content">
+              <h3>Sản phẩm 100% chính hãng</h3>
+              <span>Cam kết sản phảm chính hãng</span>
+            </div>
+          </div>
+
+          <div class="privacy-item" style="max-width: 363px">
+            <div class="privacy-icon">
+              <i class="fa-solid fa-mobile"></i>
+            </div>
+            <div class="privacy-content">
+              <h3>Đội ngũ CSKH chuyên nghiệp</h3>
+              <span>Tận hưởng đặc quyền & trải nghiệm đẳng cấp</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="container-title">
+          <h1 style="text-align: center">Sản phẩm nổi bật</h1>
+        </div>
+
+        <div class="container-card">
+          <div class="content">
+            <!-- MẪU  -->
+            <!-- <div class="products-card products-card-click">
+              <img src="" alt="dongho" class="products_card-img" />
+              <p class="products_card-name">TÊN:</p>
+              <h6 class="products_card-price">Giá :</h6>
+            </div> -->
+          </div>
+          <!--  PHÂN TRANG  -->
+          <ul class="listPage"></ul>
+        </div>
+      </div>
+      <footer class="footer"></footer>
+    </div>
+
+    <!-- Modal  -->
+
+    <div class="modal">
+      <div class="modal_overlay"></div>
+      <div class="modal_body">
+        <!-- Register form  -->
+        <div class="modal_body-middle-register">
+          <div class="auth-form_container">
+            <div class="auth-form">
+              <div class="auth-form_header">
+                <h3 class="auth-form_heading">Đăng Kí</h3>
+                <span
+                  class="auth-form_switch-btn auth-form_switch-btn-transferLogin"
+                >
+                  Đăng Nhập
+                </span>
+              </div>
+
+              <div class="auth-form_form">
+                <div class="auth-form_group">
+                  <input
+                    class="auth-form_input auth-form_input-username"
+                    type="text"
+                    placeholder="Số điện thoại"
+                  />
+                </div>
+
+                <div class="auth-form_group">
+                  <input
+                    type="password"
+                    class="auth-form_input auth-form_input-password"
+                    placeholder="Mật khẩu của bạn"
+                  />
+                </div>
+
+                <div class="auth-form_group">
+                  <input
+                    type="password"
+                    class="auth-form_input auth-form_input-password-verify"
+                    placeholder="Nhập lại mật khẩu"
+                  />
+                </div>
+              </div>
+
+              <div class="auth-form-aside">
+                <p class="auth-form_policy-text">
+                  Bằng việc đăng kí, bạn đã đồng ý với FIVET_Luxury
+                  <a href="" class="auth-form_text-link">Điều khoản dịch vụ </a
+                  >&
+                  <a href="" class="auth-form_text-link">Chính sách bảo mật</a>
+                </p>
+              </div>
+
+              <div class="auth-form_controls">
+                <button
+                  class="btn btn-normal auth-form_controls-back auth-form_controls-back-register"
+                >
+                  TRỞ LẠI
+                </button>
+                <button class="btn btn-black btn-disable btn-register">
+                  ĐĂNG KÍ
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="auth-form_socials">
+            <a
+              href=""
+              class="auth-form_socials-facebook btn btn-size-s btn-with-icon"
+            >
+              <i
+                class="auth-form_socials-icon fa-brands fa-square-facebook"
+              ></i>
+              <span class="auth-form_socials-title">Kết nối với Facebook</span>
+            </a>
+
+            <a
+              href=""
+              class="auth-form_socials-google btn btn-size-s btn-with-icon"
+            >
+              <i class="auth-form_socials-icon fa-brands fa-google"></i>
+              <span class="auth-form_socials-title">Kết nối với Google</span>
+            </a>
+          </div> -->
+        </div>
+
+        <!-- Login form  -->
+        <div class="modal_body-middle-login">
+          <div class="auth-form_container">
+            <div class="auth-form">
+              <div class="auth-form_header">
+                <h3 class="auth-form_heading">Đăng nhập</h3>
+                <span
+                  class="auth-form_switch-btn auth-form_switch-btn-transferRegister"
+                >
+                  Đăng kí
+                </span>
+              </div>
+
+              <div class="auth-form_form">
+                <div class="auth-form_group">
+                  <input
+                    type="text"
+                    class="auth-form_input auth-form_input-username_login"
+                    placeholder="Số điện thoại"
+                  />
+                </div>
+
+                <div class="auth-form_group">
+                  <input
+                    type="password"
+                    class="auth-form_input auth-form_input-password_login"
+                    placeholder="Mật khẩu của bạn"
+                  />
+                </div>
+              </div>
+
+              <div class="auth-form-aside">
+                <div class="auth-form_help">
+                  <a
+                    href=""
+                    class="auth-form_help-link auth-form_help-link-forget"
+                    >Quên mật khẩu</a
+                  >
+                  <a href="" class="auth-form_help-link auth-form_help-help"
+                    >Cần trợ giúp?</a
+                  >
+                </div>
+              </div>
+
+              <div class="auth-form_controls">
+                <button
+                  class="btn btn-normal auth-form_controls-back auth-form_controls-back-login"
+                >
+                  TRỞ LẠI
+                </button>
+                <button class="btn btn-black btn-disable btn-login">
+                  ĐĂNG NHẬP
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="auth-form_socials">
+            <a
+              href=""
+              class="auth-form_socials-facebook btn btn-size-s btn-with-icon"
+            >
+              <i
+                class="auth-form_socials-icon fa-brands fa-square-facebook"
+              ></i>
+              <span class="auth-form_socials-title"
+                >Đăng nhập với Facebook</span
+              >
+            </a>
+
+            <a
+              href=""
+              class="auth-form_socials-google btn btn-size-s btn-with-icon"
+            >
+              <i class="auth-form_socials-icon fa-brands fa-google"></i>
+              <span class="auth-form_socials-title">Đăng nhập với Google</span>
+            </a>
+          </div> -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Giỏ hàng -->
+    <div class="shopping">
+      <div class="Bag">Giỏ Hàng</div>
+
+      <ul class="listCard"></ul>
+
+      <div class="checkout">
+        <div class="total">Số tiền: 0</div>
+        <div class="payment">Đặt hàng</div>
+      </div>
+    </div>
+    <!-- PRODUCT IN4 -->
+    <div class="listproduct"></div>
+    <script src="./js/main.js"></script>
+  </body>
+</html>
