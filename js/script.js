@@ -2,8 +2,7 @@
 let element=document.getElementsByClassName('container-func-name')
 let elementt=document.querySelectorAll('.func-name')
 let display=document.querySelectorAll('.display-body')
-console.log(display)
-console.log(elementt[0])
+
 
 for(let i=0;i<elementt.length;i++)
 {
@@ -15,6 +14,7 @@ for(let i=0;i<elementt.length;i++)
             elementt[0].classList.add('active-func');
             elementt[1].classList.remove('active-func');
             elementt[2].classList.remove('active-func');
+            title_admin.innerText="Quan ly san pham";
         }
         else if(i==1)
         {
@@ -24,6 +24,7 @@ for(let i=0;i<elementt.length;i++)
             elementt[1].classList.add('active-func');
             elementt[0].classList.remove('active-func');
             elementt[2].classList.remove('active-func');
+            title_admin.innerText="Quan ly don hang"
         }
         else if(i==2)
         {
@@ -33,6 +34,7 @@ for(let i=0;i<elementt.length;i++)
             elementt[2].classList.add('active-func');
             elementt[1].classList.remove('active-func');
             elementt[0].classList.remove('active-func');
+            title_admin.innerText="Quan ly khach hang"
         }
         else{
             window.location.href="index.html"
@@ -42,4 +44,4 @@ for(let i=0;i<elementt.length;i++)
 
 let btn_detail=document.querySelectorAll('.display-body-table-btn-detail')
 let modal=document.querySelector('.container-modal')
-
+let title_admin=document.querySelector('.header-title-func')

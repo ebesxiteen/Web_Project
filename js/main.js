@@ -1555,10 +1555,13 @@ let numberHub=64;
 let numberRichard=40;
 let numberRolex=15;
 let numberPatek=0;
-
+let checkLogin =false ;
 function addtoCard(key)
 {
-    if(Type=='Hublot')
+    if(checkLogin==false){
+        alert("Ban can phai dang nhap")
+    }
+    else if(Type=='Hublot')
     {
         if(listCards[key+numberHub]==null  )
         {
@@ -1749,13 +1752,20 @@ btn_login.onclick=function(e)
         if(JSON.stringify(username_login.value) ==JSON.stringify(data.username) && JSON.stringify(password_login.value) ==JSON.stringify(data.password))
         {
          alert("Đăng nhập thành công")
+         if(JSON.stringify(username_login.value)==JSON.stringify('0342301559')){
+             window.location.href='index2.html'
+         }
+         else{
+            checkLogin=true;
+            nav_list[2].style.display='none'; 
+            nav_list[3].style.display='block'; 
+            modal.style.display='none';
+            changeUser.innerText=username_login.value;
+        } 
          break;
         }
 };
 }
-
-function nextIndex()
-{
-    window.location.href='index2.html'
-}
+let changeUser=document.querySelector('.header_navbar-item-username');
+let nav_list=document.querySelectorAll('.header_navbar-list')
 
