@@ -212,16 +212,21 @@ function showDetailCart(i,keyCart)
         cartData.forEach((value,key)=>{
             if(key==keyCart)
             {
-                let newtr = document.createElement('tr');
-                newtr.innerHTML=`
-                <td>
-                <img src="./assets/img/All/${value.img}" alt="watch" />
-                </td>
-                <td>${value.name}</td>
-                <td>${value.price.toLocaleString()}</td>
-                <td>${value.quantity}</td>
-                `
-                displayDetailTable.appendChild(newtr)
+                if(value != null){
+                    let newtr = document.createElement('tr');
+                    newtr.innerHTML=`
+                    <td>
+                    <img src="./assets/img/All/${value.img}" alt="watch" />
+                    </td>
+                    <td>${value.name}</td>
+                    <td>${value.price.toLocaleString()}</td>
+                    <td>${value.quantity}</td>
+                    `
+                    displayDetailTable.appendChild(newtr)
+                }
+                else{
+                    alert("Nguoi dung da bi xoa")
+                }
             }
         })
     }

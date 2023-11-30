@@ -1249,11 +1249,15 @@ let allProducts = [
     }
 ]
 
+let ProductLocal
 function loadLocal(){
-    localStorage.setItem('products',JSON.stringify(allProducts))
+    ProductLocal=JSON.parse(localStorage.getItem('products'))
+    if(ProductLocal==null)
+    {
+        localStorage.setItem('products',JSON.stringify(allProducts))
+    }
 }
-// loadLocal()                                                                                                                       
-let ProductLocal=JSON.parse(localStorage.getItem('products'))
+loadLocal()                                                                                                                     
 function initApp(product) {
     product.forEach((value, key) => {
         let newDiv = document.createElement('div');
