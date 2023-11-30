@@ -91,7 +91,7 @@ displayProductData = function () {
             newtr.innerHTML = `
             <td>${value.id}</td>
               <td>${value.name}</td>
-              <td>${value.price }</td>
+              <td>${value.price.toLocaleString()}</td>
               <td>${value.brand}</td>
               <td>
                 <button class="display-body-table-btn display-body-table-btn-change">Sua</button>
@@ -113,8 +113,8 @@ displaycartData=function(){
     for(let i=0;i<localStorage.length;i++){
         if(regex(localStorage.key(i)))
         {   
-            console.log(localStorage.key(i))
             cartData=JSON.parse(localStorage.getItem(localStorage.key(i)))
+            console.log(localStorage.key(i))
             console.log(cartData)
             cartData.forEach((value,key)=>{
                 let newtr = document.createElement('tr');
@@ -124,9 +124,9 @@ displaycartData=function(){
                 <td>${value.time}</td>
                 <td>${value.status}</td>
                 <td>
-                  <button class="display-body-table-btn display-body-table-btn-detail" onclick="showDetailCart(${key})">Chi tiet</button>
-                  <button class="display-body-table-btn" onclick="confirmCart(number)">Xac nhan</button>
-                  <button class="display-body-table-btn">Huy</button>
+                  <button class="display-body-table-btn display-body-table-btn-detail" onclick="showDetailCart(${i},${key})">Chi tiet</button>
+                  <button class="display-body-table-btn" onclick="confirmCart(${i},${key})">Xac nhan</button>
+                  <button class="display-body-table-btn" onclick="cancelCart(${i},${key})">Huy</button>
                 </td>
                 `
                 displayTable[2].appendChild(newtr)
@@ -139,37 +139,92 @@ displaycartData=function(){
 displaycartData()
 
 let onDetail=document.querySelector('.detailproudct')
-function confirmCart(number){
-    console.log(number)
-    console.log(cartData[number])
-    if(cartData[number].status=='Da them vao gio hang')
+
+function cancelCart(i,keyCart){
+    console.log(i)
+    console.log(keyCart)
+    if(regex(localStorage.key(i)))
     {
-        alert("Khach hang chua dat")
+        let cartData=JSON.parse(localStorage.getItem(localStorage.key(i)))
+        console.log(cartData)
+        cartData.forEach((value,key)=>{
+            if(key==keyCart)
+            {
+                    if(value.status=='Don hang bi huy')
+                    {
+                        alert("Don hang da bi huy")
+                    }
+                    else {
+                        value.status='Don hang bi huy'
+                        localStorage.setItem(localStorage.key(i),JSON.stringify(cartData))
+                    }
+                    alert("LOADING........")
+                    window.location.reload()
+            }
+        })
     }
-    else{
-        cartData[number].status='cho xac nhan'
-    }
+    display[2].style.display = "block";
+
 }
-function showDetailCart(number)
+function confirmCart(i,keyCart){
+    
+    console.log(i)
+    console.log(keyCart)
+    if(regex(localStorage.key(i)))
+    {
+        let cartData=JSON.parse(localStorage.getItem(localStorage.key(i)))
+        console.log(cartData)
+        cartData.forEach((value,key)=>{
+            if(key==keyCart)
+            {
+                if(value.status=='Da them vao gio hang')
+                {
+                    alert("khach hang chua xac nhan")
+                }
+                else{
+                    value.status='Da xac nhan'
+                    alert("Da xac nhan")
+                    localStorage.setItem(localStorage.key(i),JSON.stringify(cartData))
+                    alert("LOADING........")
+                    window.location.reload()
+                }
+            }
+        })
+    }
+    display[2].style.display = "block";
+}
+
+function showDetailCart(i,keyCart)
 {
-    console.log(number)
-    console.log(cartData[number])
     modalContainer.style.display='flex';
-    onDetail.style.display='block'
+    onDetail.style.display='block';
+
     let displayDetailTable=document.querySelector('.detailproduct_body-table')
     while (displayDetailTable.hasChildNodes()) {
         displayDetailTable.removeChild(displayDetailTable.firstChild);
     }
-    let newtr = document.createElement('tr');
-    newtr.innerHTML=`
-    <td>
-    <img src="./assets/img/All/${cartData[number].img}" alt="watch" />
-    </td>
-    <td>${cartData[number].name}</td>
-    <td>${cartData[number].price}</td>
-    <td>${cartData[number].quantity}</td>
-    `
-    displayDetailTable.appendChild(newtr)
+    console.log(i)
+    console.log(keyCart)
+    if(regex(localStorage.key(i)))
+    {
+        let cartData=JSON.parse(localStorage.getItem(localStorage.key(i)))
+        console.log(cartData)
+        cartData.forEach((value,key)=>{
+            if(key==keyCart)
+            {
+                let newtr = document.createElement('tr');
+                newtr.innerHTML=`
+                <td>
+                <img src="./assets/img/All/${value.img}" alt="watch" />
+                </td>
+                <td>${value.name}</td>
+                <td>${value.price.toLocaleString()}</td>
+                <td>${value.quantity}</td>
+                `
+                displayDetailTable.appendChild(newtr)
+            }
+        })
+    }
 }
 
 function delete_products(event, number) {
@@ -269,7 +324,7 @@ pushProduct.onclick=function(){
     addProduct.style.display='none';
     window.location.reload();
 }
-display[1].style.display = "block";
+
 
 hideProduct_push=document.querySelector('.btn-hide_push')
 hideProduct_push.addEventListener("click",function(){
