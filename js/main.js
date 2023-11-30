@@ -1,5 +1,5 @@
 let usernameLoggedIn;
-let userCard = JSON.parse(localStorage.getItem(usernameLoggedIn)) || [];
+// let userCard = JSON.parse(localStorage.getItem(usernameLoggedIn)) ;
 let list = document.querySelector('.content');
 let modal = document.querySelector('.modal');
 let registers = document.querySelector('.modal_body-middle-register');
@@ -51,6 +51,7 @@ transferLogin.addEventListener('click', () => {
     registers.style.display = "none";
     logins.style.display = "block";
 })
+
 let allProducts = [
     {
         id: 1,
@@ -576,8 +577,6 @@ let allProducts = [
         ShellMaterial: `Oystersteel,Yellow Gold 18k`,
         detail: ` là một trong những thiết kế được ra mắt vào năm 2021. Đồng hồ là một sự tái khẳng định tinh thần “sang trọng đương đại” của mẫu đồng hồ Aquanaut Chronograph, lần đầu tiên được xuất hiện trong một lớp vỏ bằng vàng trắng. Bảo vệ mặt số là lớp tinh tể sapphire trong suốt để lộ bên dưới là mặt số màu xanh kaki mang xu hướng hiện đại với họa tiết bàn cờ khắc nổi. Trung tâm mặt số là bộ kim giờ, kim phút và kim giây với lớp phủ phát quang màu trắng, cho phép người đeo có thể xem giờ ngay cả khi ở trong điều kiện thiếu ánh sáng. Hơn nữa, để tạo nên nét chấm phá cho mặt số thì thay vì sử dụng một kiểu cọc số đơn lẻ, thương hiệu đã kết hợp cả cọc số Ả Rập và vạch chỉ giờ cho chiếc đồng hồ này. Tại vị trí 3 giờ là một ô cửa sổ lịch ngày. Bộ đếm chronograph 60 phút ở vị trí 6 giờ cũng có hình bát giác bo tròn giống khung bezel.
         Sản phẩm còn được trang bị bộ máy CH 28‑520 C, hoạt động ở tần số 28.800vph và có mức dự trữ năng lượng tối đa lên đến 55 giờ. Có thể nhìn thấy qua mặt kính sau là cân bằng Gyromax với lò xo cân bằng Spiromax, con dấu Patek Philippe và cánh quạt được làm bằng vàng hồng 21k. Đồng hồ có khả năng kháng nước ở độ sâu tối đa 120 mét.`
-
-
     },
     {
         id: 38,
@@ -1248,8 +1247,13 @@ let allProducts = [
         Sản phẩm còn được trang bị bộ máy CH 28‑520 C, hoạt động ở tần số 28.800vph và có mức dự trữ năng lượng tối đa lên đến 55 giờ. Có thể nhìn thấy qua mặt kính sau là cân bằng Gyromax với lò xo cân bằng Spiromax, con dấu Patek Philippe và cánh quạt được làm bằng vàng hồng 21k. Đồng hồ có khả năng kháng nước ở độ sâu tối đa 120 mét.`
 
     }
-
 ]
+
+function loadLocal(){
+    localStorage.setItem('products',JSON.stringify(allProducts))
+}
+// loadLocal()                                                                                                                       
+let ProductLocal=JSON.parse(localStorage.getItem('products'))
 function initApp(product) {
     product.forEach((value, key) => {
         let newDiv = document.createElement('div');
@@ -1263,10 +1267,11 @@ function initApp(product) {
         list.appendChild(newDiv);
     });
 }
-initApp(allProducts);
+// console.log(ProductLocal)
+initApp(ProductLocal);
 let listProduct = document.querySelectorAll('.content .products-card');
 let thisPage = 1;
-let limit = 7;
+let limit = 7;                              
 function loadItem(listProduct) {
     let beginGet = (thisPage - 1) * limit;
     let endGet = (thisPage - 1) * limit + limit;
@@ -1325,13 +1330,14 @@ btnClassify.forEach(btn => {
     btn.addEventListener('click', (value) => {
         let type = value.currentTarget.getAttribute('type');
         Type = type;
-        let filterData = allProducts.filter(function (brands) {
+        let filterData =ProductLocal.filter(function (brands) {
             return brands.brand == type;
         })
         while (list.hasChildNodes()) {
             list.removeChild(list.firstChild);
         }
         initApp(filterData);
+        
         while (listproducts.hasChildNodes()) {
             listproducts.removeChild(listproducts.firstChild)
         }
@@ -1364,7 +1370,7 @@ function showInfo(buyTickets, listproducts) {
     }
 }
 showInfo(buyTickets, listproducts);
-initProductsInf(allProducts)
+initProductsInf(ProductLocal)
 function initProductsInf(product) {
     product.forEach((value, key) => {
 
@@ -1541,10 +1547,6 @@ openShopping.addEventListener('click', () => {
 }
 )
 
-let numberHub = 64;
-let numberRichard = 40;
-let numberRolex = 15;
-let numberPatek = 0;
 let checkLogin = false;
 function addtoCard(key) {
     if (checkLogin == false) {
@@ -1555,14 +1557,18 @@ function addtoCard(key) {
             id: '',
             img: '',
             name: '',
+            time:'',
             price: 0,
-            quantity: 0
+            quantity: 0, 
+            status:''
         }
-        tmp.id = allProducts[key].id;
-        tmp.img = allProducts[key].image;
-        tmp.name = allProducts[key].name;
-        tmp.price = allProducts[key].price;
-
+        let date =new Date();
+        tmp.id = ProductLocal[key].id;
+        tmp.img = ProductLocal[key].image;
+        tmp.name = ProductLocal[key].name;
+        tmp.price = ProductLocal[key].price;
+        tmp.time=formatTime(date).toString();
+        tmp.status="Da them vao gio hang"
         let ucIndex = userCard.findIndex(uc => uc.id === tmp.id);
         if (ucIndex != -1) {
             userCard[ucIndex].quantity += 1;
@@ -1573,6 +1579,7 @@ function addtoCard(key) {
             userCard.push(tmp);
         }
 
+        
         console.log(userCard)
         localStorage.setItem(usernameLoggedIn, JSON.stringify(userCard));
         reloadCard()
@@ -1587,15 +1594,16 @@ function reloadCard() {
         listCard.removeChild(listCard.firstChild);
     }
     json.forEach((value, key) => {
-        totalPrice = totalPrice + value.price;
-        count = count + value.quantity;
         if (value != null) {
+            totalPrice = totalPrice + value.price;
+            count = count + value.quantity;
             let newDiv = document.createElement('li');
             newDiv.innerHTML = `
            <img src="./assets/img/All/${value.img}" class="products_card-img">
            <div>${value.name}</div>
            <div> ${value.price.toLocaleString()}</div>
-           
+           <div class="pending" >${value.status}</div>
+           <div>${value.time}</div>
            <div class="btn-quantity"> 
            <button onclick="changeQuantity(${key},${value.quantity - 1})">-</button>
            <div>${value.quantity}</div>
@@ -1603,7 +1611,6 @@ function reloadCard() {
             </div>
            `
             listCard.appendChild(newDiv);
-
         }
     })
     total.innerText = totalPrice.toLocaleString();
@@ -1612,7 +1619,7 @@ function reloadCard() {
 function changeQuantity(key, quantity) {
     let json = JSON.parse(localStorage.getItem(usernameLoggedIn));
     if (quantity == 0) {
-        delete json[key];
+        delete json[key]
     }
     else {
         json[key].quantity = quantity;
@@ -1621,6 +1628,7 @@ function changeQuantity(key, quantity) {
     localStorage.setItem(usernameLoggedIn, JSON.stringify(json));
 
     reloadCard();
+    console.log(json)
 }
 function Main() {
     pagination.style.display = 'block';
@@ -1715,10 +1723,12 @@ btn_login.onclick = function () {
         else {
             checkLogin = true;
             nav_list[2].style.display = 'none';
-            nav_list[3].style.display = 'block';
+            nav_list[3].style.display = 'flex';
             modal.style.display = 'none';
             changeUser.innerText = username_login;
             usernameLoggedIn = JSON.stringify(username_login);
+            userCard=JSON.parse(localStorage.getItem(usernameLoggedIn))
+            console.log(userCard)
             reloadCard()
         }
     }
@@ -1728,3 +1738,49 @@ btn_login.onclick = function () {
 let changeUser = document.querySelector('.header_navbar-item-username');
 let nav_list = document.querySelectorAll('.header_navbar-list')
 
+
+
+function formatTime(date){
+    let hours=date.getHours("");
+    let minutes=date.getMinutes();
+    let seconds=date.getSeconds();
+    let day=date.getDate()
+    let month=date.getMonth();
+    let year=date.getFullYear();
+    let amOrpm=hours >=12 ? "pm" : "am";
+ 
+    hours =(hours%12) || 12;
+    hours=formatZeroes(hours);
+    minutes=formatZeroes(minutes);
+    seconds=formatZeroes(seconds);
+    
+    return `${hours}:${minutes}:${seconds} ${amOrpm} | ${day}/${month+1}/${year}`
+ }
+ function formatZeroes(time)
+ {
+    time =time.toString();
+    return time.length <2 ? "0"+time : time;
+ }
+
+ let logoutAccount =document.querySelector('.header_navbar-item-logout')
+ logoutAccount.addEventListener('click',()=>{
+    nav_list[2].style.display = 'flex';
+    nav_list[3].style.display = 'none';
+    checkLogin = false;
+    while (listCard.hasChildNodes()) {
+        listCard.removeChild(listCard.firstChild);
+    }
+    total.innerText = 0;
+    quantity.innerText = 0;
+ })
+ 
+ payMent.addEventListener('click',()=>{
+    let json = JSON.parse(localStorage.getItem(usernameLoggedIn));
+    json.forEach((value, key) => {
+        if (value != null) {
+          value.status="cho xac nhan";
+        }
+    })
+    localStorage.setItem(usernameLoggedIn,JSON.stringify(json))
+    reloadCard()
+})

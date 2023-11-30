@@ -74,7 +74,7 @@
                 </li>
               </ul>
 
-              <ul class="header_navbar-list">
+              <ul class="header_navbar-list" style="display: flex">
                 <li
                   onclick="login()"
                   class="header_navbar-item header_navbar-item--strong header_navbar-item--saparate button-login"
@@ -89,7 +89,10 @@
                 </li>
               </ul>
 
-              <ul class="header_navbar-list" style="display: none">
+              <ul
+                class="header_navbar-list header_navbar-list-logout"
+                style="display: none"
+              >
                 <li
                   class="header_navbar-item header_navbar-item--strong header_navbar-item-circle"
                 ></li>
@@ -98,13 +101,12 @@
                 >
                   Username
                 </li>
-
-                <!-- <div class="header_navbar-logout">CLICK DE LOGOUT!</div> -->
+                <li
+                  class="header_navbar-item header_navbar-item--strong header_navbar-item-logout"
+                >
+                  | Dang xuat
+                </li>
               </ul>
-              <!-- <ul class="header_navbar-list">
-                <li class="header_navbar-list-avatar"></li>
-                <li class="header_navbar-list-username">Username</li>
-              </ul> -->
             </nav>
             <nav class="header_menu">
               <ul id="main-menu">

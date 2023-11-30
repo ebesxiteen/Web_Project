@@ -64,8 +64,7 @@ displayUserData()
 function delete_user(event, number) {
     let row_delete = event.target;
     let row = row_delete.parentElement.parentElement;
-    row.remove();
-
+    row.remove()
     userdata.splice(number, 1)
     localStorage.setItem('users', JSON.stringify(userdata))
     displayUserData()
