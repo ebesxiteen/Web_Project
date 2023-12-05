@@ -1251,12 +1251,13 @@ let allProducts = [
 
 let ProductLocal
 function loadLocal(){
-    ProductLocal=JSON.parse(localStorage.getItem('products'))
-    if(ProductLocal==null)
+    let ProductLocaltmp=localStorage.getItem(localStorage.key)
+    if(ProductLocaltmp==null)
     {
         localStorage.setItem('products',JSON.stringify(allProducts))
     }
 }
+ProductLocal=JSON.parse(localStorage.getItem('products'))
 loadLocal()                                                                                                                     
 function initApp(product) {
     product.forEach((value, key) => {
@@ -1353,7 +1354,6 @@ btnClassify.forEach(btn => {
         console.log(type);
         let buyTicket = document.querySelectorAll('.products-card-click');
         console.log(buyTicket);
-        // let listProductfilter=document.querySelectorAll('.content .products-card');
         pagination.style.display = 'none';
         showInfo(buyTicket, listproducts);
     })
@@ -1650,8 +1650,11 @@ function Main() {
     slider.style.display = "block";
     active.style.display = 'none';
     listproducts.children[save].classList.remove('open');
+    let listProductTmp = document.querySelectorAll('.content .products-card');
     let buyTicketsMain = document.querySelectorAll('.products-card-click');
     showInfo(buyTicketsMain, listproducts);
+    loadItem(listProductTmp);
+
 }
 
 
