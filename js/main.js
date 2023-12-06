@@ -8,6 +8,7 @@ let comebacklogin = document.querySelector('.auth-form_controls-back-login');
 let comebackregister = document.querySelector('.auth-form_controls-back-register');
 let transferRegister = document.querySelector('.auth-form_switch-btn-transferRegister');
 let transferLogin = document.querySelector('.auth-form_switch-btn-transferLogin');
+let footer=document.querySelector(".footer");
 function login() {
     if (modal.style.display == "none") {
         modal.style.display = "block";
@@ -1251,13 +1252,12 @@ let allProducts = [
 
 let ProductLocal
 function loadLocal(){
-    let ProductLocaltmp=localStorage.getItem(localStorage.key)
-    if(ProductLocaltmp==null)
+    ProductLocal=JSON.parse(localStorage.getItem('products'))
+    if(ProductLocal==null)
     {
         localStorage.setItem('products',JSON.stringify(allProducts))
     }
 }
-ProductLocal=JSON.parse(localStorage.getItem('products'))
 loadLocal()                                                                                                                     
 function initApp(product) {
     product.forEach((value, key) => {
@@ -1353,15 +1353,19 @@ btnClassify.forEach(btn => {
         active.style.display = 'none';
         privacy.style.display = 'none';
         slider.style.display = 'none';
+        footer.style.display='block';
         console.log(type);
         let buyTicket = document.querySelectorAll('.products-card-click');
         console.log(buyTicket);
+        // let listProductfilter=document.querySelectorAll('.content .products-card');
         pagination.style.display = 'none';
         showInfo(buyTicket, listproducts);
     })
 })
 
+
 let footer = document.querySelector('.footer')
+
 let save = 0
 function showInfo(buyTickets, listproducts) {
 
@@ -1370,7 +1374,9 @@ function showInfo(buyTickets, listproducts) {
             listproducts.children[i].classList.add('open');
             container.style.display = 'none';
             privacy.style.display = 'none';
+
             footer.style.display = 'none';
+
             save = i;
             console.log(save);
         }
@@ -1381,7 +1387,7 @@ showInfo(buyTickets, listproducts);
 initProductsInf(ProductLocal)
 function initProductsInf(product) {
     product.forEach((value, key) => {
-
+        
         let newDiv = document.createElement('div');
         newDiv.classList.add('product-info');
         newDiv.innerHTML = `<div class="main-wrapper">
@@ -1393,6 +1399,7 @@ function initProductsInf(product) {
               </div>
             </div>
             <div class="product-div-right">
+            <div class="product-text">
               <div class="product">
                 <span class="product-name">
                  ${value.name}</span
@@ -1424,6 +1431,7 @@ function initProductsInf(product) {
                     <td>${value.ShellMaterial}</td>
                   </tr>
                 </table>
+              </div>
               </div>
 
               <div class="btn-groups">
@@ -1551,6 +1559,7 @@ openShopping.addEventListener('click', () => {
     container.style.display = 'none';
     privacy.style.display = 'none';
     slider.style.display = 'none';
+    footer.style.display='none';
     listproducts.children[save].classList.remove('open');
 }
 )
@@ -1577,7 +1586,7 @@ function addtoCard(key) {
         tmp.price = ProductLocal[key].price;
         tmp.time=formatTime(date).toString();
         tmp.status="Da them vao gio hang"
-        let ucIndex = userCard.findIndex(uc => uc.id === tmp.id);
+        let ucIndex = userCard.findIndex(uc => uc.id == tmp.id);
         if (ucIndex != -1) {
             userCard[ucIndex].quantity += 1;
             userCard[ucIndex].price = userCard[ucIndex].quantity * allProducts[key].price;
@@ -1649,17 +1658,21 @@ function Main() {
         listproducts.removeChild(listproducts.firstChild)
     }
     initProductsInf(allProducts);
-    footer.style.display = 'block';
+
+    listProduct = document.querySelectorAll('.content .products-card');
+    thisPage = 1;   
+    loadItem(listProduct);
+
     container.style.display = "block";
     privacy.style.display = "block";
     slider.style.display = "block";
     active.style.display = 'none';
+    
     listproducts.children[save].classList.remove('open');
-    let listProductTmp = document.querySelectorAll('.content .products-card');
     let buyTicketsMain = document.querySelectorAll('.products-card-click');
     showInfo(buyTicketsMain, listproducts);
-    loadItem(listProductTmp);
-
+    footer.style.display= 'block';
+    changeTitle("ALL PRODUCTS");
 }
 
 
@@ -1739,7 +1752,8 @@ btn_login.onclick = function () {
             modal.style.display = 'none';
             changeUser.innerText = username_login;
             usernameLoggedIn = JSON.stringify(username_login);
-            userCard=JSON.parse(localStorage.getItem(usernameLoggedIn))
+            localStorage.setItem(usernameLoggedIn,userCard);
+      
             console.log(userCard)
             reloadCard()
         }
@@ -1797,6 +1811,105 @@ function formatTime(date){
     reloadCard()
 })
 
+
+
 function changeTitle(value){
     document.getElementById('title').innerHTML=value;
 }
+
+let productList=document.querySelectorAll('.product-text');
+let searchInput=document.querySelector('.search input');
+let dem;
+searchInput.addEventListener('input',(e)=>{
+    let search=document.getElementById('search-ic');
+    search.addEventListener('click',()=>{
+        dem=0;
+        Main();
+        pagination.style.display = 'none';
+        container.style.display = 'block';
+        active.style.display = 'none';
+        privacy.style.display = 'none';
+        slider.style.display = 'none';
+        footer.style.display='block';
+        changeTitle('Search Result'); 
+    
+    searchData=e.target.value.trim().toLowerCase();
+    console.log(searchData);
+        productList.forEach((item,key)=>{
+        console.log(item.innerText);
+        if(item.innerText.toLowerCase().includes(searchData))
+        {
+            listProduct[key].style.display="block";
+            dem+=1;
+        }
+        else{
+            listProduct[key].style.display="none";
+        }
+        })
+        if(dem==0){
+            changeTitle('No Search Result...'); 
+        }
+        else changeTitle('Search Result');
+        
+        container.style.display='block';
+        console.log(type);
+        console.log(buyTicket);
+        for(let i=0;i<buyTicket.length;i++)
+        {
+         buyTicket[i].addEventListener('click',()=>{
+                listproducts.children[i].classList.add('open');
+                container.style.display='none';
+                privacy.style.display='none';
+        }
+        )
+        }
+
+    // console.log(resultData);
+})
+   
+searchInput.addEventListener('keypress',(e)=>{
+    var keycode = (e.keyCode ? e.keyCode : e.which);
+    if (keycode == '13') {
+        dem=0;
+        Main();
+        pagination.style.display = 'none';
+        container.style.display = 'block';
+        active.style.display = 'none';
+        privacy.style.display = 'none';
+        slider.style.display = 'none';
+        footer.style.display='block';
+        
+        searchData=e.target.value.trim().toLowerCase();
+        console.log(searchData);
+            productList.forEach((item,key)=>{
+            console.log(item.innerText);
+            if(item.innerText.toLowerCase().includes(searchData))
+            {
+                listProduct[key].style.display="block";
+                dem+=1;
+            }
+            else{
+                listProduct[key].style.display="none";
+            }
+            })
+            if(dem==0){
+                changeTitle('No Search Result...'); 
+            }
+            else changeTitle('Search Result');
+            
+            container.style.display='block';
+            console.log(type);
+            console.log(buyTicket);
+            for(let i=0;i<buyTicket.length;i++)
+            {
+             buyTicket[i].addEventListener('click',()=>{
+                    listproducts.children[i].classList.add('open');
+                    container.style.display='none';
+                    privacy.style.display='none';
+            }
+            )
+            }
+}
+})
+   
+})
