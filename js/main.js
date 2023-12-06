@@ -1,5 +1,5 @@
 let usernameLoggedIn;
-// let userCard = JSON.parse(localStorage.getItem(usernameLoggedIn)) ;
+let userCard = JSON.parse(localStorage.getItem(usernameLoggedIn)) ||[];
 let list = document.querySelector('.content');
 let modal = document.querySelector('.modal');
 let registers = document.querySelector('.modal_body-middle-register');
@@ -1251,13 +1251,12 @@ let allProducts = [
 
 let ProductLocal
 function loadLocal(){
-    let ProductLocaltmp=localStorage.getItem(localStorage.key)
-    if(ProductLocaltmp==null)
+    ProductLocal=JSON.parse(localStorage.getItem('products'))
+    if(ProductLocal==null)
     {
         localStorage.setItem('products',JSON.stringify(allProducts))
     }
 }
-ProductLocal=JSON.parse(localStorage.getItem('products'))
 loadLocal()                                                                                                                     
 function initApp(product) {
     product.forEach((value, key) => {
@@ -1354,6 +1353,7 @@ btnClassify.forEach(btn => {
         console.log(type);
         let buyTicket = document.querySelectorAll('.products-card-click');
         console.log(buyTicket);
+        // let listProductfilter=document.querySelectorAll('.content .products-card');
         pagination.style.display = 'none';
         showInfo(buyTicket, listproducts);
     })
@@ -1573,7 +1573,7 @@ function addtoCard(key) {
         tmp.price = ProductLocal[key].price;
         tmp.time=formatTime(date).toString();
         tmp.status="Da them vao gio hang"
-        let ucIndex = userCard.findIndex(uc => uc.id === tmp.id);
+        let ucIndex = userCard.findIndex(uc => uc.id == tmp.id);
         if (ucIndex != -1) {
             userCard[ucIndex].quantity += 1;
             userCard[ucIndex].price = userCard[ucIndex].quantity * allProducts[key].price;
@@ -1650,11 +1650,8 @@ function Main() {
     slider.style.display = "block";
     active.style.display = 'none';
     listproducts.children[save].classList.remove('open');
-    let listProductTmp = document.querySelectorAll('.content .products-card');
     let buyTicketsMain = document.querySelectorAll('.products-card-click');
     showInfo(buyTicketsMain, listproducts);
-    loadItem(listProductTmp);
-
 }
 
 
@@ -1734,7 +1731,8 @@ btn_login.onclick = function () {
             modal.style.display = 'none';
             changeUser.innerText = username_login;
             usernameLoggedIn = JSON.stringify(username_login);
-            userCard=JSON.parse(localStorage.getItem(usernameLoggedIn))
+            localStorage.setItem(usernameLoggedIn,userCard);
+      
             console.log(userCard)
             reloadCard()
         }
