@@ -1275,10 +1275,10 @@ function initApp(product) {
 initApp(ProductLocal);
 let listProduct = document.querySelectorAll('.content .products-card');
 let thisPage = 1;
-let limit = 7;                              
+let limit = 12;                              
 function loadItem(listProduct) {
     let beginGet = (thisPage - 1) * limit;
-    let endGet = (thisPage - 1) * limit + limit;
+    let endGet = (thisPage - 1) * limit + 11;
     listProduct.forEach((item, key) => {
         if (key >= beginGet && key <= endGet) {
             item.style.display = "block";
@@ -1334,6 +1334,7 @@ btnClassify.forEach(btn => {
     btn.addEventListener('click', (value) => {
         let type = value.currentTarget.getAttribute('type');
         Type = type;
+        changeTitle(type+'\'s '+'Products');
         let filterData =ProductLocal.filter(function (brands) {
             return brands.brand == type;
         })
@@ -1348,8 +1349,8 @@ btnClassify.forEach(btn => {
         initProductsInf(filterData);
         container.style.display = 'block';
         active.style.display = 'none';
-        privacy.style.display = 'block';
-        slider.style.display = 'block';
+        privacy.style.display = 'none';
+        slider.style.display = 'none';
         console.log(type);
         let buyTicket = document.querySelectorAll('.products-card-click');
         console.log(buyTicket);
@@ -1634,6 +1635,7 @@ function changeQuantity(key, quantity) {
     reloadCard();
     console.log(json)
 }
+
 function Main() {
     pagination.style.display = 'block';
     while (list.hasChildNodes()) {
@@ -1789,3 +1791,7 @@ function formatTime(date){
     localStorage.setItem(usernameLoggedIn,JSON.stringify(json))
     reloadCard()
 })
+
+function changeTitle(value){
+    document.getElementById('title').innerHTML=value;
+}
