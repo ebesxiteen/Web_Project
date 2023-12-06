@@ -1352,7 +1352,7 @@ btnClassify.forEach(btn => {
         active.style.display = 'none';
         privacy.style.display = 'none';
         slider.style.display = 'none';
-        footer.style.display='none';
+        footer.style.display='block';
         console.log(type);
         let buyTicket = document.querySelectorAll('.products-card-click');
         console.log(buyTicket);
@@ -1663,6 +1663,7 @@ function Main() {
     let buyTicketsMain = document.querySelectorAll('.products-card-click');
     showInfo(buyTicketsMain, listproducts);
     footer.style.display= 'block';
+    changeTitle("ALL PRODUCTS");
 }
 
 
