@@ -8,6 +8,7 @@ let comebacklogin = document.querySelector('.auth-form_controls-back-login');
 let comebackregister = document.querySelector('.auth-form_controls-back-register');
 let transferRegister = document.querySelector('.auth-form_switch-btn-transferRegister');
 let transferLogin = document.querySelector('.auth-form_switch-btn-transferLogin');
+let footer=document.querySelector(".footer");
 function login() {
     if (modal.style.display == "none") {
         modal.style.display = "block";
@@ -1351,6 +1352,7 @@ btnClassify.forEach(btn => {
         active.style.display = 'none';
         privacy.style.display = 'none';
         slider.style.display = 'none';
+        footer.style.display='none';
         console.log(type);
         let buyTicket = document.querySelectorAll('.products-card-click');
         console.log(buyTicket);
@@ -1360,6 +1362,7 @@ btnClassify.forEach(btn => {
     })
 })
 
+
 let save = 0
 function showInfo(buyTickets, listproducts) {
 
@@ -1368,6 +1371,7 @@ function showInfo(buyTickets, listproducts) {
             listproducts.children[i].classList.add('open');
             container.style.display = 'none';
             privacy.style.display = 'none';
+            footer.style.display='none';
             save = i;
             console.log(save);
         }
@@ -1378,7 +1382,7 @@ showInfo(buyTickets, listproducts);
 initProductsInf(ProductLocal)
 function initProductsInf(product) {
     product.forEach((value, key) => {
-
+        
         let newDiv = document.createElement('div');
         newDiv.classList.add('product-info');
         newDiv.innerHTML = `<div class="main-wrapper">
@@ -1548,6 +1552,7 @@ openShopping.addEventListener('click', () => {
     container.style.display = 'none';
     privacy.style.display = 'none';
     slider.style.display = 'none';
+    footer.style.display='none';
     listproducts.children[save].classList.remove('open');
 }
 )
@@ -1646,14 +1651,18 @@ function Main() {
         listproducts.removeChild(listproducts.firstChild)
     }
     initProductsInf(allProducts);
-
+    listProduct = document.querySelectorAll('.content .products-card');
+    thisPage = 1;   
+    loadItem(listProduct);
     container.style.display = "block";
     privacy.style.display = "block";
     slider.style.display = "block";
     active.style.display = 'none';
+    
     listproducts.children[save].classList.remove('open');
     let buyTicketsMain = document.querySelectorAll('.products-card-click');
     showInfo(buyTicketsMain, listproducts);
+    footer.style.display= 'block';
 }
 
 
