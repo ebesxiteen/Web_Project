@@ -1394,6 +1394,7 @@ function initProductsInf(product) {
               </div>
             </div>
             <div class="product-div-right">
+            <div class="product-text">
               <div class="product">
                 <span class="product-name">
                  ${value.name}</span
@@ -1425,6 +1426,7 @@ function initProductsInf(product) {
                     <td>${value.ShellMaterial}</td>
                   </tr>
                 </table>
+              </div>
               </div>
 
               <div class="btn-groups">
@@ -1802,6 +1804,92 @@ function formatTime(date){
     reloadCard()
 })
 
+
+
 function changeTitle(value){
     document.getElementById('title').innerHTML=value;
 }
+
+let productList=document.querySelectorAll('.product-text');
+let searchInput=document.querySelector('.search input');
+searchInput.addEventListener('input',(e)=>{
+    let search=document.getElementById('search-ic');
+    search.addEventListener('click',()=>{
+        Main();
+        pagination.style.display = 'none';
+        container.style.display = 'block';
+        active.style.display = 'none';
+        privacy.style.display = 'none';
+        slider.style.display = 'none';
+        footer.style.display='block';
+        changeTitle('Search Result'); 
+    
+    searchData=e.target.value.trim().toLowerCase();
+    console.log(searchData);
+        productList.forEach((item,key)=>{
+        console.log(item.innerText);
+        if(item.innerText.toLowerCase().includes(searchData))
+        {
+            listProduct[key].style.display="block";
+        }
+        else{
+            listProduct[key].style.display="none";
+        }
+        })
+        
+        container.style.display='block';
+        console.log(type);
+        console.log(buyTicket);
+        for(let i=0;i<buyTicket.length;i++)
+        {
+         buyTicket[i].addEventListener('click',()=>{
+                listproducts.children[i].classList.add('open');
+                container.style.display='none';
+                privacy.style.display='none';
+        }
+        )
+        }
+
+    // console.log(resultData);
+})
+   
+searchInput.addEventListener('keypress',(e)=>{
+    var keycode = (e.keyCode ? e.keyCode : e.which);
+    if (keycode == '13') {
+        Main();
+        pagination.style.display = 'none';
+        container.style.display = 'block';
+        active.style.display = 'none';
+        privacy.style.display = 'none';
+        slider.style.display = 'none';
+        footer.style.display='block';
+        changeTitle('Search Result'); 
+        searchData=e.target.value.trim().toLowerCase();
+        console.log(searchData);
+            productList.forEach((item,key)=>{
+            console.log(item.innerText);
+            if(item.innerText.toLowerCase().includes(searchData))
+            {
+                listProduct[key].style.display="block";
+            }
+            else{
+                listProduct[key].style.display="none";
+            }
+            })
+            
+            container.style.display='block';
+            console.log(type);
+            console.log(buyTicket);
+            for(let i=0;i<buyTicket.length;i++)
+            {
+             buyTicket[i].addEventListener('click',()=>{
+                    listproducts.children[i].classList.add('open');
+                    container.style.display='none';
+                    privacy.style.display='none';
+            }
+            )
+            }
+}
+})
+   
+})
