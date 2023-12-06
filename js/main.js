@@ -1,5 +1,5 @@
 let usernameLoggedIn;
-// let userCard = JSON.parse(localStorage.getItem(usernameLoggedIn)) ;
+let userCard = JSON.parse(localStorage.getItem(usernameLoggedIn)) || [];
 let list = document.querySelector('.content');
 let modal = document.querySelector('.modal');
 let registers = document.querySelector('.modal_body-middle-register');
@@ -1348,6 +1348,7 @@ btnClassify.forEach(btn => {
             listproducts.removeChild(listproducts.firstChild)
         }
         initProductsInf(filterData);
+        footer.style.display = 'block';
         container.style.display = 'block';
         active.style.display = 'none';
         privacy.style.display = 'none';
@@ -1360,6 +1361,7 @@ btnClassify.forEach(btn => {
     })
 })
 
+let footer = document.querySelector('.footer')
 let save = 0
 function showInfo(buyTickets, listproducts) {
 
@@ -1368,6 +1370,7 @@ function showInfo(buyTickets, listproducts) {
             listproducts.children[i].classList.add('open');
             container.style.display = 'none';
             privacy.style.display = 'none';
+            footer.style.display = 'none';
             save = i;
             console.log(save);
         }
@@ -1646,7 +1649,7 @@ function Main() {
         listproducts.removeChild(listproducts.firstChild)
     }
     initProductsInf(allProducts);
-
+    footer.style.display = 'block';
     container.style.display = "block";
     privacy.style.display = "block";
     slider.style.display = "block";
