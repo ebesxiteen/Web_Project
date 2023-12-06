@@ -1812,9 +1812,11 @@ function changeTitle(value){
 
 let productList=document.querySelectorAll('.product-text');
 let searchInput=document.querySelector('.search input');
+let dem;
 searchInput.addEventListener('input',(e)=>{
     let search=document.getElementById('search-ic');
     search.addEventListener('click',()=>{
+        dem=0;
         Main();
         pagination.style.display = 'none';
         container.style.display = 'block';
@@ -1831,11 +1833,16 @@ searchInput.addEventListener('input',(e)=>{
         if(item.innerText.toLowerCase().includes(searchData))
         {
             listProduct[key].style.display="block";
+            dem+=1;
         }
         else{
             listProduct[key].style.display="none";
         }
         })
+        if(dem==0){
+            changeTitle('No Search Result...'); 
+        }
+        else changeTitle('Search Result');
         
         container.style.display='block';
         console.log(type);
@@ -1856,6 +1863,7 @@ searchInput.addEventListener('input',(e)=>{
 searchInput.addEventListener('keypress',(e)=>{
     var keycode = (e.keyCode ? e.keyCode : e.which);
     if (keycode == '13') {
+        dem=0;
         Main();
         pagination.style.display = 'none';
         container.style.display = 'block';
@@ -1863,7 +1871,7 @@ searchInput.addEventListener('keypress',(e)=>{
         privacy.style.display = 'none';
         slider.style.display = 'none';
         footer.style.display='block';
-        changeTitle('Search Result'); 
+        
         searchData=e.target.value.trim().toLowerCase();
         console.log(searchData);
             productList.forEach((item,key)=>{
@@ -1871,11 +1879,16 @@ searchInput.addEventListener('keypress',(e)=>{
             if(item.innerText.toLowerCase().includes(searchData))
             {
                 listProduct[key].style.display="block";
+                dem+=1;
             }
             else{
                 listProduct[key].style.display="none";
             }
             })
+            if(dem==0){
+                changeTitle('No Search Result...'); 
+            }
+            else changeTitle('Search Result');
             
             container.style.display='block';
             console.log(type);
