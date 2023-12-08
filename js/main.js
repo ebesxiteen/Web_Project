@@ -1,5 +1,5 @@
 let usernameLoggedIn;
-let userCard = JSON.parse(localStorage.getItem(usernameLoggedIn)) || [];
+
 let list = document.querySelector('.content');
 let modal = document.querySelector('.modal');
 let registers = document.querySelector('.modal_body-middle-register');
@@ -8,6 +8,7 @@ let comebacklogin = document.querySelector('.auth-form_controls-back-login');
 let comebackregister = document.querySelector('.auth-form_controls-back-register');
 let transferRegister = document.querySelector('.auth-form_switch-btn-transferRegister');
 let transferLogin = document.querySelector('.auth-form_switch-btn-transferLogin');
+let footer=document.querySelector(".footer");
 function login() {
     if (modal.style.display == "none") {
         modal.style.display = "block";
@@ -1251,13 +1252,12 @@ let allProducts = [
 
 let ProductLocal
 function loadLocal(){
-    let ProductLocaltmp=localStorage.getItem(localStorage.key)
-    if(ProductLocaltmp==null)
+    ProductLocal=JSON.parse(localStorage.getItem('products'))
+    if(ProductLocal==null)
     {
         localStorage.setItem('products',JSON.stringify(allProducts))
     }
 }
-ProductLocal=JSON.parse(localStorage.getItem('products'))
 loadLocal()                                                                                                                     
 function initApp(product) {
     product.forEach((value, key) => {
@@ -1353,15 +1353,18 @@ btnClassify.forEach(btn => {
         active.style.display = 'none';
         privacy.style.display = 'none';
         slider.style.display = 'none';
+        footer.style.display='block';
         console.log(type);
         let buyTicket = document.querySelectorAll('.products-card-click');
         console.log(buyTicket);
+        // let listProductfilter=document.querySelectorAll('.content .products-card');
         pagination.style.display = 'none';
         showInfo(buyTicket, listproducts);
     })
 })
 
-let footer = document.querySelector('.footer')
+
+
 let save = 0
 function showInfo(buyTickets, listproducts) {
 
@@ -1370,7 +1373,9 @@ function showInfo(buyTickets, listproducts) {
             listproducts.children[i].classList.add('open');
             container.style.display = 'none';
             privacy.style.display = 'none';
+
             footer.style.display = 'none';
+
             save = i;
             console.log(save);
         }
@@ -1381,7 +1386,7 @@ showInfo(buyTickets, listproducts);
 initProductsInf(ProductLocal)
 function initProductsInf(product) {
     product.forEach((value, key) => {
-
+        
         let newDiv = document.createElement('div');
         newDiv.classList.add('product-info');
         newDiv.innerHTML = `<div class="main-wrapper">
@@ -1393,6 +1398,7 @@ function initProductsInf(product) {
               </div>
             </div>
             <div class="product-div-right">
+            <div class="product-text">
               <div class="product">
                 <span class="product-name">
                  ${value.name}</span
@@ -1424,6 +1430,7 @@ function initProductsInf(product) {
                     <td>${value.ShellMaterial}</td>
                   </tr>
                 </table>
+              </div>
               </div>
 
               <div class="btn-groups">
@@ -1551,9 +1558,43 @@ openShopping.addEventListener('click', () => {
     container.style.display = 'none';
     privacy.style.display = 'none';
     slider.style.display = 'none';
+    footer.style.display='none';
     listproducts.children[save].classList.remove('open');
 }
 )
+var btn_register = document.querySelector('.btn-register')
+var btn_login = document.querySelector('.btn-login')
+// Login 
+btn_login.onclick = function () {
+    let username_login = document.querySelector('.auth-form_input-username_login').value;
+    let password_login = document.querySelector('.auth-form_input-password_login').value;
+
+    // console.log(username_login)
+    // console.log(password_login)
+
+    var existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+    var loggedInUser = existingUsers.find(u => u.username === username_login && u.password === password_login);
+    if (loggedInUser) {
+        alert("Dang nhap thanh cong")
+        if (loggedInUser.username == '0342301559') {
+            window.location.href = 'index2.html'
+        }
+        else {
+            checkLogin = true;
+            nav_list[2].style.display = 'none';
+            nav_list[3].style.display = 'flex';
+            modal.style.display = 'none';
+            changeUser.innerText = username_login;
+            usernameLoggedIn = JSON.stringify(username_login);
+            let userCard = JSON.parse(localStorage.getItem(usernameLoggedIn)) ||[];
+            localStorage.setItem(usernameLoggedIn,JSON.stringify(userCard));
+            reloadCard()
+        }
+    }
+    else alert("Dang nhap that bai")
+
+}
+let userCard = JSON.parse(localStorage.getItem(usernameLoggedIn)) ||[];
 
 let checkLogin = false;
 function addtoCard(key) {
@@ -1568,7 +1609,7 @@ function addtoCard(key) {
             time:'',
             price: 0,
             quantity: 0, 
-            status:''
+            status:'Da them vao gio hang'
         }
         let date =new Date();
         tmp.id = ProductLocal[key].id;
@@ -1576,8 +1617,7 @@ function addtoCard(key) {
         tmp.name = ProductLocal[key].name;
         tmp.price = ProductLocal[key].price;
         tmp.time=formatTime(date).toString();
-        tmp.status="Da them vao gio hang"
-        let ucIndex = userCard.findIndex(uc => uc.id === tmp.id);
+        let ucIndex = userCard.findIndex(uc => uc.id == tmp.id);
         if (ucIndex != -1) {
             userCard[ucIndex].quantity += 1;
             userCard[ucIndex].price = userCard[ucIndex].quantity * allProducts[key].price;
@@ -1587,7 +1627,6 @@ function addtoCard(key) {
             userCard.push(tmp);
         }
 
-        
         console.log(userCard)
         localStorage.setItem(usernameLoggedIn, JSON.stringify(userCard));
         reloadCard()
@@ -1595,7 +1634,8 @@ function addtoCard(key) {
 
 }
 function reloadCard() {
-    let json = JSON.parse(localStorage.getItem(usernameLoggedIn));
+    let json = JSON.parse(localStorage.getItem(usernameLoggedIn)) || [];
+    // console.log(json)
     let count = 0;
     let totalPrice = 0;
     while (listCard.hasChildNodes()) {
@@ -1626,6 +1666,7 @@ function reloadCard() {
 }
 function changeQuantity(key, quantity) {
     let json = JSON.parse(localStorage.getItem(usernameLoggedIn));
+    console.log(json);
     if (quantity == 0) {
         delete json[key]
     }
@@ -1649,23 +1690,26 @@ function Main() {
         listproducts.removeChild(listproducts.firstChild)
     }
     initProductsInf(allProducts);
-    footer.style.display = 'block';
+
+    listProduct = document.querySelectorAll('.content .products-card');
+    thisPage = 1;   
+    loadItem(listProduct);
+
     container.style.display = "block";
     privacy.style.display = "block";
     slider.style.display = "block";
     active.style.display = 'none';
+    
     listproducts.children[save].classList.remove('open');
-    let listProductTmp = document.querySelectorAll('.content .products-card');
     let buyTicketsMain = document.querySelectorAll('.products-card-click');
     showInfo(buyTicketsMain, listproducts);
-    loadItem(listProductTmp);
-
+    footer.style.display= 'block';
+    changeTitle("ALL PRODUCTS");
 }
 
 
 // Register
-var btn_register = document.querySelector('.btn-register')
-var btn_login = document.querySelector('.btn-login')
+
 var regexPhone = /(0[9|3])+([0-9]{8})\b/g;
 var check = true;
 function regex(phone) {
@@ -1717,36 +1761,7 @@ btn_register.onclick = function () {
     }
 }
 
-// Login 
-btn_login.onclick = function () {
-    let username_login = document.querySelector('.auth-form_input-username_login').value;
-    let password_login = document.querySelector('.auth-form_input-password_login').value;
 
-    console.log(username_login)
-    console.log(password_login)
-
-    var existingUsers = JSON.parse(localStorage.getItem('users')) || [];
-    var loggedInUser = existingUsers.find(u => u.username === username_login && u.password === password_login);
-    if (loggedInUser) {
-        alert("Dang nhap thanh cong")
-        if (loggedInUser.username == '0342301559') {
-            window.location.href = 'index2.html'
-        }
-        else {
-            checkLogin = true;
-            nav_list[2].style.display = 'none';
-            nav_list[3].style.display = 'flex';
-            modal.style.display = 'none';
-            changeUser.innerText = username_login;
-            usernameLoggedIn = JSON.stringify(username_login);
-            userCard=JSON.parse(localStorage.getItem(usernameLoggedIn))
-            console.log(userCard)
-            reloadCard()
-        }
-    }
-    else alert("Dang nhap that bai")
-
-}
 let changeUser = document.querySelector('.header_navbar-item-username');
 let nav_list = document.querySelectorAll('.header_navbar-list')
 
@@ -1797,6 +1812,105 @@ function formatTime(date){
     reloadCard()
 })
 
+
+
 function changeTitle(value){
     document.getElementById('title').innerHTML=value;
 }
+
+let productList=document.querySelectorAll('.product-text');
+let searchInput=document.querySelector('.search input');
+let dem;
+searchInput.addEventListener('input',(e)=>{
+    let search=document.getElementById('search-ic');
+    search.addEventListener('click',()=>{
+        dem=0;
+        Main();
+        pagination.style.display = 'none';
+        container.style.display = 'block';
+        active.style.display = 'none';
+        privacy.style.display = 'none';
+        slider.style.display = 'none';
+        footer.style.display='block';
+        changeTitle('Search Result'); 
+    
+    searchData=e.target.value.trim().toLowerCase();
+    console.log(searchData);
+        productList.forEach((item,key)=>{
+        console.log(item.innerText);
+        if(item.innerText.toLowerCase().includes(searchData))
+        {
+            listProduct[key].style.display="block";
+            dem+=1;
+        }
+        else{
+            listProduct[key].style.display="none";
+        }
+        })
+        if(dem==0){
+            changeTitle('No Search Result...'); 
+        }
+        else changeTitle('Search Result');
+        
+        container.style.display='block';
+        console.log(type);
+        console.log(buyTicket);
+        for(let i=0;i<buyTicket.length;i++)
+        {
+         buyTicket[i].addEventListener('click',()=>{
+                listproducts.children[i].classList.add('open');
+                container.style.display='none';
+                privacy.style.display='none';
+        }
+        )
+        }
+
+    // console.log(resultData);
+})
+   
+searchInput.addEventListener('keypress',(e)=>{
+    var keycode = (e.keyCode ? e.keyCode : e.which);
+    if (keycode == '13') {
+        dem=0;
+        Main();
+        pagination.style.display = 'none';
+        container.style.display = 'block';
+        active.style.display = 'none';
+        privacy.style.display = 'none';
+        slider.style.display = 'none';
+        footer.style.display='block';
+        
+        searchData=e.target.value.trim().toLowerCase();
+        console.log(searchData);
+            productList.forEach((item,key)=>{
+            console.log(item.innerText);
+            if(item.innerText.toLowerCase().includes(searchData))
+            {
+                listProduct[key].style.display="block";
+                dem+=1;
+            }
+            else{
+                listProduct[key].style.display="none";
+            }
+            })
+            if(dem==0){
+                changeTitle('No Search Result...'); 
+            }
+            else changeTitle('Search Result');
+            
+            container.style.display='block';
+            console.log(type);
+            console.log(buyTicket);
+            for(let i=0;i<buyTicket.length;i++)
+            {
+             buyTicket[i].addEventListener('click',()=>{
+                    listproducts.children[i].classList.add('open');
+                    container.style.display='none';
+                    privacy.style.display='none';
+            }
+            )
+            }
+}
+})
+   
+})

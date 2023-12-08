@@ -986,4 +986,18 @@ h1{
         left: 0;
         right: 80px;
     }
+    
+.search{
+    padding-left: 50px;
+    padding-top: 5px;
+    color: #abb8c3;
+}
+.search input{
+    border:none;
+    border-bottom: 2px solid rgb(139, 136, 136);
+    outline: none;
+    background-color: transparent;
+    color: #d7d1d1;
+}
+
 }
