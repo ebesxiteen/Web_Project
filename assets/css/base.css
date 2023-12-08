@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Poppins:wght@200&display=swap');
+
 :root{
     --white-color:#fff;
     --black-color:#000;
     --text-color:#333;
     --border-color:#dbdbdb;
-    --mainstream-color:#938715;
+    --mainstream-color:#ddaf64;
 }
 
 *{
@@ -13,13 +15,17 @@
 html{
     font-size:62.5%;
     line-height: 1.6rem;
-    font-family: 'HarmoniaSemiLight';
+    /* font-family: 'HarmoniaSemiLight'; */
+    /* font-family: 'Roboto Mono', monospace; */
+    /* font-family: 'Montserrat', sans-serif; */
+    /* font-family: 'Afacad', sans-serif; */
+    font-family: 'Cormorant Garamond', serif;
     box-sizing: border-box;
 }
 
 .grid{
     width:100%;
-    height:160px;
+    /* height:160px; */
     max-width: 100%;
     margin:0 auto;
 }
@@ -143,7 +149,7 @@ html{
     display:flex;
     align-items: center;
     justify-content:center;
-
+    cursor: pointer;
 }
 .btn.btn-normal:hover{
     background-color: rgba(0,0,0,.05);

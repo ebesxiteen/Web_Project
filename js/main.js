@@ -568,7 +568,7 @@ let allProducts = [
     },
     {
         id: 37,
-        name: 'Đồng Hồ Rolex Cosmograph Daytona 40 116503-0009 Xà Cừ Tím Black Mother Of Pearl Dây Đeo Oyster Thép Vàng Vàng',
+        name: 'Đồng Hồ Rolex Cosmograph Daytona 40 116503-0009 Xà Cừ Tím Black Mother Of Pearl Dây Đeo Oyster Thép',
         image: 'rolex22.png',
         price: 1100000000,
         brand: `Rolex`,
@@ -1575,7 +1575,7 @@ btn_login.onclick = function () {
     var existingUsers = JSON.parse(localStorage.getItem('users')) || [];
     var loggedInUser = existingUsers.find(u => u.username === username_login && u.password === password_login);
     if (loggedInUser) {
-        alert("Dang nhap thanh cong")
+        alert("Đăng nhập thành công")
         if (loggedInUser.username == '0342301559') {
             window.location.href = 'index2.html'
         }
@@ -1591,7 +1591,7 @@ btn_login.onclick = function () {
             reloadCard()
         }
     }
-    else alert("Dang nhap that bai")
+    else alert("Đăng nhập thất bại")
 
 }
 let userCard = JSON.parse(localStorage.getItem(usernameLoggedIn)) ||[];
@@ -1599,7 +1599,7 @@ let userCard = JSON.parse(localStorage.getItem(usernameLoggedIn)) ||[];
 let checkLogin = false;
 function addtoCard(key) {
     if (checkLogin == false) {
-        alert("Ban can phai dang nhap")
+        alert("Bạn cần phải đăng nhập")
     }
     else {
         let tmp = {
@@ -1609,7 +1609,7 @@ function addtoCard(key) {
             time:'',
             price: 0,
             quantity: 0, 
-            status:'Da them vao gio hang'
+            status:'Đã thêm vào giỏ hàng'
         }
         let date =new Date();
         tmp.id = ProductLocal[key].id;
@@ -1745,10 +1745,10 @@ btn_register.onclick = function () {
     }
 
     if (!regex(username_register)) {
-        alert("So dien thoai khong hop le")
+        alert("Số điện thoại không hợp lệ")
     }
     else if (JSON.stringify(password_register) == null || JSON.stringify(password_verify_register) == null || JSON.stringify(password_register) != JSON.stringify(password_verify_register)) {
-        alert("Mat khau chua duoc xac thuc hoac bo trong")
+        alert("Mật khẩu chưa được xác thực hoặc bỏ trống")
     }
     else {
 
@@ -1757,7 +1757,7 @@ btn_register.onclick = function () {
 
         // Save the updated user array to localStorage
         localStorage.setItem('users', JSON.stringify(existingUsers));
-        alert("Dang ki thanh cong")
+        alert("Đăng kí thành công")
     }
 }
 
@@ -1805,7 +1805,7 @@ function formatTime(date){
     let json = JSON.parse(localStorage.getItem(usernameLoggedIn));
     json.forEach((value, key) => {
         if (value != null) {
-          value.status="cho xac nhan";
+          value.status="Chờ xác nhận";
         }
     })
     localStorage.setItem(usernameLoggedIn,JSON.stringify(json))
