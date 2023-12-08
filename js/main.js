@@ -1365,6 +1365,8 @@ btnClassify.forEach(btn => {
 
 
 
+// let footer = document.querySelector('.footer')
+
 let save = 0
 function showInfo(buyTickets, listproducts) {
 
@@ -1609,7 +1611,7 @@ function addtoCard(key) {
             time:'',
             price: 0,
             quantity: 0, 
-            status:'Da them vao gio hang'
+            status:''
         }
         let date =new Date();
         tmp.id = ProductLocal[key].id;
@@ -1617,6 +1619,8 @@ function addtoCard(key) {
         tmp.name = ProductLocal[key].name;
         tmp.price = ProductLocal[key].price;
         tmp.time=formatTime(date).toString();
+
+        tmp.status="Da them vao gio hang"
         let ucIndex = userCard.findIndex(uc => uc.id == tmp.id);
         if (ucIndex != -1) {
             userCard[ucIndex].quantity += 1;
@@ -1761,7 +1765,32 @@ btn_register.onclick = function () {
     }
 }
 
+    console.log(username_login)
+    console.log(password_login)
 
+    var existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+    var loggedInUser = existingUsers.find(u => u.username === username_login && u.password === password_login);
+    if (loggedInUser) {
+        alert("Dang nhap thanh cong")
+        if (loggedInUser.username == '0342301559') {
+            window.location.href = 'index2.html'
+        }
+        else {
+            checkLogin = true;
+            nav_list[2].style.display = 'none';
+            nav_list[3].style.display = 'flex';
+            modal.style.display = 'none';
+            changeUser.innerText = username_login;
+            usernameLoggedIn = JSON.stringify(username_login);
+            localStorage.setItem(usernameLoggedIn,userCard);
+      
+            console.log(userCard)
+            reloadCard()
+        }
+    }
+    else alert("Dang nhap that bai")
+
+}
 let changeUser = document.querySelector('.header_navbar-item-username');
 let nav_list = document.querySelectorAll('.header_navbar-list')
 
