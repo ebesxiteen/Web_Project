@@ -1,5 +1,4 @@
 let usernameLoggedIn;
-
 let list = document.querySelector('.content');
 let modal = document.querySelector('.modal');
 let registers = document.querySelector('.modal_body-middle-register');
@@ -1255,7 +1254,7 @@ function loadLocal(){
     ProductLocal=JSON.parse(localStorage.getItem('products'))
     if(ProductLocal==null)
     {
-        localStorage.setItem('products',JSON.stringify(allProducts))
+        ProductLocal= localStorage.setItem('products',JSON.stringify(allProducts))
     }
 }
 loadLocal()                                                                                                                     
@@ -1272,8 +1271,7 @@ function initApp(product) {
         list.appendChild(newDiv);
     });
 }
-// console.log(ProductLocal)
-initApp(ProductLocal);
+initApp( ProductLocal);
 let listProduct = document.querySelectorAll('.content .products-card');
 let thisPage = 1;
 let limit = 12;                              
@@ -1354,9 +1352,9 @@ btnClassify.forEach(btn => {
         privacy.style.display = 'none';
         slider.style.display = 'none';
         footer.style.display='block';
-        console.log(type);
+        //console.log(type);
         let buyTicket = document.querySelectorAll('.products-card-click');
-        console.log(buyTicket);
+        //console.log(buyTicket);
         // let listProductfilter=document.querySelectorAll('.content .products-card');
         pagination.style.display = 'none';
         showInfo(buyTicket, listproducts);
@@ -1377,7 +1375,7 @@ function showInfo(buyTickets, listproducts) {
             footer.style.display = 'none';
 
             save = i;
-            console.log(save);
+            //console.log(save);
         }
         )
     }
@@ -1569,8 +1567,8 @@ btn_login.onclick = function () {
     let username_login = document.querySelector('.auth-form_input-username_login').value;
     let password_login = document.querySelector('.auth-form_input-password_login').value;
 
-    // console.log(username_login)
-    // console.log(password_login)
+    // //console.log(username_login)
+    // //console.log(password_login)
 
     var existingUsers = JSON.parse(localStorage.getItem('users')) || [];
     var loggedInUser = existingUsers.find(u => u.username === username_login && u.password === password_login);
@@ -1627,7 +1625,7 @@ function addtoCard(key) {
             userCard.push(tmp);
         }
 
-        console.log(userCard)
+        //console.log(userCard)
         localStorage.setItem(usernameLoggedIn, JSON.stringify(userCard));
         reloadCard()
     }
@@ -1635,7 +1633,7 @@ function addtoCard(key) {
 }
 function reloadCard() {
     let json = JSON.parse(localStorage.getItem(usernameLoggedIn)) || [];
-    // console.log(json)
+    // //console.log(json)
     let count = 0;
     let totalPrice = 0;
     while (listCard.hasChildNodes()) {
@@ -1666,7 +1664,7 @@ function reloadCard() {
 }
 function changeQuantity(key, quantity) {
     let json = JSON.parse(localStorage.getItem(usernameLoggedIn));
-    console.log(json);
+    //console.log(json);
     if (quantity == 0) {
         delete json[key]
     }
@@ -1677,7 +1675,7 @@ function changeQuantity(key, quantity) {
     localStorage.setItem(usernameLoggedIn, JSON.stringify(json));
 
     reloadCard();
-    console.log(json)
+    //console.log(json)
 }
 
 function Main() {
@@ -1835,9 +1833,9 @@ searchInput.addEventListener('input',(e)=>{
         changeTitle('Search Result'); 
     
     searchData=e.target.value.trim().toLowerCase();
-    console.log(searchData);
+    //console.log(searchData);
         productList.forEach((item,key)=>{
-        console.log(item.innerText);
+        //console.log(item.innerText);
         if(item.innerText.toLowerCase().includes(searchData))
         {
             listProduct[key].style.display="block";
@@ -1853,8 +1851,8 @@ searchInput.addEventListener('input',(e)=>{
         else changeTitle('Search Result');
         
         container.style.display='block';
-        console.log(type);
-        console.log(buyTicket);
+        //console.log(type);
+        //console.log(buyTicket);
         for(let i=0;i<buyTicket.length;i++)
         {
          buyTicket[i].addEventListener('click',()=>{
@@ -1865,7 +1863,7 @@ searchInput.addEventListener('input',(e)=>{
         )
         }
 
-    // console.log(resultData);
+    // //console.log(resultData);
 })
    
 searchInput.addEventListener('keypress',(e)=>{
@@ -1881,9 +1879,9 @@ searchInput.addEventListener('keypress',(e)=>{
         footer.style.display='block';
         
         searchData=e.target.value.trim().toLowerCase();
-        console.log(searchData);
+        //console.log(searchData);
             productList.forEach((item,key)=>{
-            console.log(item.innerText);
+            //console.log(item.innerText);
             if(item.innerText.toLowerCase().includes(searchData))
             {
                 listProduct[key].style.display="block";
@@ -1899,8 +1897,8 @@ searchInput.addEventListener('keypress',(e)=>{
             else changeTitle('Search Result');
             
             container.style.display='block';
-            console.log(type);
-            console.log(buyTicket);
+            //console.log(type);
+            //console.log(buyTicket);
             for(let i=0;i<buyTicket.length;i++)
             {
              buyTicket[i].addEventListener('click',()=>{
