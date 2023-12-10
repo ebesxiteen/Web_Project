@@ -259,7 +259,7 @@
     padding: 15px 18px;
     display: flex;
     justify-content: space-between;
-    color: #fccfae;
+    color: #ddaf64;
     font-size: 20px;
     background-color: black;
     border-radius: 15px 15px 0 0;
@@ -345,7 +345,7 @@
     padding: 15px 18px;
     display: flex;
     justify-content: space-between;
-    color: #fccfae;
+    color: #ddaf64;
     font-size: 20px;
     background-color: black;
     border-radius: 15px 15px 0 0;
@@ -409,7 +409,7 @@
 
 .fixproduct button {
     font-size: 15px;
-    color: #fccfae;
+    color: #ddaf64;
     width: 50px;
     margin-right:22px;
     border-radius:8px;
@@ -432,7 +432,7 @@
     padding: 15px 18px;
     display: flex;
     justify-content: space-between;
-    color: #fccfae;
+    color: #ddaf64;
     font-size: 20px;
     background-color: black;
     border-radius: 15px 15px 0 0;
