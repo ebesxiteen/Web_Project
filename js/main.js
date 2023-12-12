@@ -1333,7 +1333,7 @@ btnClassify.forEach(btn => {
     btn.addEventListener('click', (value) => {
         let type = value.currentTarget.getAttribute('type');
         Type = type;
-        console.log(Type)
+        ////console.log(Type)
         changeTitle(type+'\'s '+'Products');
         let filterData =ProductLocal.filter(function (brands) {
             return brands.brand == type;
@@ -1354,9 +1354,9 @@ btnClassify.forEach(btn => {
         privacy.style.display = 'none';
         slider.style.display = 'none';
         footer.style.display='block';
-        //console.log(type);
+        //////console.log(type);
         let buyTicket = document.querySelectorAll('.products-card-click');
-        //console.log(buyTicket);
+        //////console.log(buyTicket);
         // let listProductfilter=document.querySelectorAll('.content .products-card');
         pagination.style.display = 'none';
         showInfo(buyTicket, listproducts);
@@ -1377,7 +1377,7 @@ function showInfo(buyTickets, listproducts) {
             footer.style.display = 'none';
 
             save = i;
-            //console.log(save);
+            //////console.log(save);
         }
         )
     }
@@ -1570,8 +1570,8 @@ btn_login.onclick = function () {
     let username_login = document.querySelector('.auth-form_input-username_login').value;
     let password_login = document.querySelector('.auth-form_input-password_login').value;
 
-    // //console.log(username_login)
-    // //console.log(password_login)
+    // //////console.log(username_login)
+    // //////console.log(password_login)
 
     var existingUsers = JSON.parse(localStorage.getItem('users')) || [];
     var loggedInUser = existingUsers.find(u => u.username === username_login && u.password === password_login);
@@ -1588,7 +1588,7 @@ btn_login.onclick = function () {
             changeUser.innerText = username_login;
             usernameLoggedIn = JSON.stringify(username_login);
             userCard = JSON.parse(localStorage.getItem(usernameLoggedIn)) ||[];
-            // console.log(userCard)
+            console.log(userCard);
             localStorage.setItem(usernameLoggedIn,JSON.stringify(userCard));
             reloadCard()
         }
@@ -1598,11 +1598,12 @@ btn_login.onclick = function () {
 }
 let checkLogin = false;
 function addtoCard(key) {
+    userCard = JSON.parse(localStorage.getItem(usernameLoggedIn)) ||[];
     if (checkLogin == false) {
         alert("Bạn cần phải đăng nhập")
     }
     else {
-        // console.log(key)
+        // ////console.log(key)
         let tmp = {
             id: '',
             img: '',
@@ -1641,9 +1642,8 @@ function addtoCard(key) {
             tmp.price = ProductLocal[key].price;
             tmp.time=formatTime(date).toString();
         }
-        console.log(userCard)
         let ucIndex = userCard.findIndex(uc => uc.id == tmp.id);
-        console.log(ucIndex)
+        console.log(ucIndex)    
         if (ucIndex != -1) {   
             userCard[ucIndex].quantity += 1;
             userCard[ucIndex].price = userCard[ucIndex].quantity * allProducts[key].price;
@@ -1652,8 +1652,6 @@ function addtoCard(key) {
             tmp.quantity = 1;
             userCard.push(tmp);
         }
-
-        console.log(userCard)
         localStorage.setItem(usernameLoggedIn, JSON.stringify(userCard));
         reloadCard()
     }
@@ -1661,7 +1659,7 @@ function addtoCard(key) {
 }
 function reloadCard() {
     let json = JSON.parse(localStorage.getItem(usernameLoggedIn)) || [];
-    // console.log(json)
+    // ////console.log(json)
     let count = 0;
     let totalPrice = 0;
     // while (listCard.hasChildNodes()) {
@@ -1695,8 +1693,8 @@ function changeQuantity(key, quantity) {
     let json = JSON.parse(localStorage.getItem(usernameLoggedIn));
     if (quantity == 0) {
         // delete json[key];
-        json.splice(key,1)
-    console.log(json);
+        json.splice(key,1);
+    ////console.log(json);
     }
     else {
         json[key].quantity = quantity;
@@ -1704,7 +1702,7 @@ function changeQuantity(key, quantity) {
     }
     localStorage.setItem(usernameLoggedIn, JSON.stringify(json));
     reloadCard();
-    //console.log(json)
+    //////console.log(json)
 }
 
 function Main() {
@@ -1862,9 +1860,9 @@ searchInput.addEventListener('input',(e)=>{
         changeTitle('Search Result'); 
     
     searchData=e.target.value.trim().toLowerCase();
-    //console.log(searchData);
+    //////console.log(searchData);
         productList.forEach((item,key)=>{
-        //console.log(item.innerText);
+        //////console.log(item.innerText);
         if(item.innerText.toLowerCase().includes(searchData))
         {
             listProduct[key].style.display="block";
@@ -1880,8 +1878,8 @@ searchInput.addEventListener('input',(e)=>{
         else changeTitle('Search Result');
         
         container.style.display='block';
-        //console.log(type);
-        //console.log(buyTicket);
+        //////console.log(type);
+        //////console.log(buyTicket);
         for(let i=0;i<buyTicket.length;i++)
         {
          buyTicket[i].addEventListener('click',()=>{
@@ -1892,7 +1890,7 @@ searchInput.addEventListener('input',(e)=>{
         )
         }
 
-    // //console.log(resultData);
+    // //////console.log(resultData);
 })
    
 searchInput.addEventListener('keypress',(e)=>{
@@ -1908,9 +1906,9 @@ searchInput.addEventListener('keypress',(e)=>{
         footer.style.display='block';
         
         searchData=e.target.value.trim().toLowerCase();
-        //console.log(searchData);
+        //////console.log(searchData);
             productList.forEach((item,key)=>{
-            //console.log(item.innerText);
+            //////console.log(item.innerText);
             if(item.innerText.toLowerCase().includes(searchData))
             {
                 listProduct[key].style.display="block";
@@ -1926,8 +1924,8 @@ searchInput.addEventListener('keypress',(e)=>{
             else changeTitle('Search Result');
             
             container.style.display='block';
-            //console.log(type);
-            //console.log(buyTicket);
+            //////console.log(type);
+            //////console.log(buyTicket);
             for(let i=0;i<buyTicket.length;i++)
             {
              buyTicket[i].addEventListener('click',()=>{
