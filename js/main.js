@@ -1333,7 +1333,7 @@ btnClassify.forEach(btn => {
     btn.addEventListener('click', (value) => {
         let type = value.currentTarget.getAttribute('type');
         Type = type;
-        ////console.log(Type)
+        // console.log(Type)
         changeTitle(type+'\'s '+'Products');
         let filterData =ProductLocal.filter(function (brands) {
             return brands.brand == type;
@@ -1628,7 +1628,7 @@ function addtoCard(key) {
             tmp.price = ProductLocal[key+15].price;
             tmp.time=formatTime(date).toString();
         }
-        else if(Type== "Richard Mille"){
+        else if(Type=="RichardMille"){
             tmp.id = ProductLocal[key+40].id;
             tmp.img = ProductLocal[key+40].image;
             tmp.name = ProductLocal[key+40].name;
