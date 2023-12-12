@@ -1333,18 +1333,20 @@ btnClassify.forEach(btn => {
     btn.addEventListener('click', (value) => {
         let type = value.currentTarget.getAttribute('type');
         Type = type;
+        console.log(Type)
         changeTitle(type+'\'s '+'Products');
         let filterData =ProductLocal.filter(function (brands) {
             return brands.brand == type;
         })
-        while (list.hasChildNodes()) {
-            list.removeChild(list.firstChild);
-        }
-        initApp(filterData);
-        
-        while (listproducts.hasChildNodes()) {
-            listproducts.removeChild(listproducts.firstChild)
-        }
+        // while (list.hasChildNodes()) {
+        //     list.removeChild(list.firstChild);
+        // }
+        // while (listproducts.hasChildNodes()) {
+            //     listproducts.removeChild(listproducts.firstChild)
+            // }
+            listproducts.innerText="";
+            list.innerText="";
+            initApp(filterData);
         initProductsInf(filterData);
         footer.style.display = 'block';
         container.style.display = 'block';
@@ -1563,6 +1565,7 @@ openShopping.addEventListener('click', () => {
 var btn_register = document.querySelector('.btn-register')
 var btn_login = document.querySelector('.btn-login')
 // Login 
+let userCard ;
 btn_login.onclick = function () {
     let username_login = document.querySelector('.auth-form_input-username_login').value;
     let password_login = document.querySelector('.auth-form_input-password_login').value;
@@ -1584,7 +1587,8 @@ btn_login.onclick = function () {
             modal.style.display = 'none';
             changeUser.innerText = username_login;
             usernameLoggedIn = JSON.stringify(username_login);
-            let userCard = JSON.parse(localStorage.getItem(usernameLoggedIn)) ||[];
+            userCard = JSON.parse(localStorage.getItem(usernameLoggedIn)) ||[];
+            // console.log(userCard)
             localStorage.setItem(usernameLoggedIn,JSON.stringify(userCard));
             reloadCard()
         }
@@ -1592,14 +1596,13 @@ btn_login.onclick = function () {
     else alert("Đăng nhập thất bại")
 
 }
-let userCard = JSON.parse(localStorage.getItem(usernameLoggedIn)) ||[];
-
 let checkLogin = false;
 function addtoCard(key) {
     if (checkLogin == false) {
         alert("Bạn cần phải đăng nhập")
     }
     else {
+        // console.log(key)
         let tmp = {
             id: '',
             img: '',
@@ -1610,13 +1613,38 @@ function addtoCard(key) {
             status:'Đã thêm vào giỏ hàng'
         }
         let date =new Date();
-        tmp.id = ProductLocal[key].id;
-        tmp.img = ProductLocal[key].image;
-        tmp.name = ProductLocal[key].name;
-        tmp.price = ProductLocal[key].price;
-        tmp.time=formatTime(date).toString();
+        if(Type=="Hublot"){
+            tmp.id = ProductLocal[key+64].id;
+            tmp.img = ProductLocal[key+64].image;
+            tmp.name = ProductLocal[key+64].name;
+            tmp.price = ProductLocal[key+64].price;
+            tmp.time=formatTime(date).toString();
+        }
+        else if(Type=="Rolex"){
+            tmp.id = ProductLocal[key+15].id;
+            tmp.img = ProductLocal[key+15].image;
+            tmp.name = ProductLocal[key+15].name;
+            tmp.price = ProductLocal[key+15].price;
+            tmp.time=formatTime(date).toString();
+        }
+        else if(Type== "Richard Mille"){
+            tmp.id = ProductLocal[key+40].id;
+            tmp.img = ProductLocal[key+40].image;
+            tmp.name = ProductLocal[key+40].name;
+            tmp.price = ProductLocal[key+40].price;
+            tmp.time=formatTime(date).toString();   
+        }
+        else{
+            tmp.id = ProductLocal[key].id;
+            tmp.img = ProductLocal[key].image;
+            tmp.name = ProductLocal[key].name;
+            tmp.price = ProductLocal[key].price;
+            tmp.time=formatTime(date).toString();
+        }
+        console.log(userCard)
         let ucIndex = userCard.findIndex(uc => uc.id == tmp.id);
-        if (ucIndex != -1) {
+        console.log(ucIndex)
+        if (ucIndex != -1) {   
             userCard[ucIndex].quantity += 1;
             userCard[ucIndex].price = userCard[ucIndex].quantity * allProducts[key].price;
         }
@@ -1625,7 +1653,7 @@ function addtoCard(key) {
             userCard.push(tmp);
         }
 
-        //console.log(userCard)
+        console.log(userCard)
         localStorage.setItem(usernameLoggedIn, JSON.stringify(userCard));
         reloadCard()
     }
@@ -1633,12 +1661,13 @@ function addtoCard(key) {
 }
 function reloadCard() {
     let json = JSON.parse(localStorage.getItem(usernameLoggedIn)) || [];
-    // //console.log(json)
+    // console.log(json)
     let count = 0;
     let totalPrice = 0;
-    while (listCard.hasChildNodes()) {
-        listCard.removeChild(listCard.firstChild);
-    }
+    // while (listCard.hasChildNodes()) {
+    //     listCard.removeChild(listCard.firstChild);
+    // }
+    listCard.innerText=""
     json.forEach((value, key) => {
         if (value != null) {
             totalPrice = totalPrice + value.price;
@@ -1664,16 +1693,16 @@ function reloadCard() {
 }
 function changeQuantity(key, quantity) {
     let json = JSON.parse(localStorage.getItem(usernameLoggedIn));
-    //console.log(json);
     if (quantity == 0) {
-        delete json[key]
+        // delete json[key];
+        json.splice(key,1)
+    console.log(json);
     }
     else {
         json[key].quantity = quantity;
         json[key].price = allProducts[key].price * quantity;
     }
     localStorage.setItem(usernameLoggedIn, JSON.stringify(json));
-
     reloadCard();
     //console.log(json)
 }
