@@ -1245,7 +1245,6 @@ let allProducts = [
         ShellMaterial: `Tiatanium`,
         detail: ` là một trong những thiết kế được ra mắt vào năm 2021. Đồng hồ là một sự tái khẳng định tinh thần “sang trọng đương đại” của mẫu đồng hồ Aquanaut Chronograph, lần đầu tiên được xuất hiện trong một lớp vỏ bằng vàng trắng. Bảo vệ mặt số là lớp tinh tể sapphire trong suốt để lộ bên dưới là mặt số màu xanh kaki mang xu hướng hiện đại với họa tiết bàn cờ khắc nổi. Trung tâm mặt số là bộ kim giờ, kim phút và kim giây với lớp phủ phát quang màu trắng, cho phép người đeo có thể xem giờ ngay cả khi ở trong điều kiện thiếu ánh sáng. Hơn nữa, để tạo nên nét chấm phá cho mặt số thì thay vì sử dụng một kiểu cọc số đơn lẻ, thương hiệu đã kết hợp cả cọc số Ả Rập và vạch chỉ giờ cho chiếc đồng hồ này. Tại vị trí 3 giờ là một ô cửa sổ lịch ngày. Bộ đếm chronograph 60 phút ở vị trí 6 giờ cũng có hình bát giác bo tròn giống khung bezel.
         Sản phẩm còn được trang bị bộ máy CH 28‑520 C, hoạt động ở tần số 28.800vph và có mức dự trữ năng lượng tối đa lên đến 55 giờ. Có thể nhìn thấy qua mặt kính sau là cân bằng Gyromax với lò xo cân bằng Spiromax, con dấu Patek Philippe và cánh quạt được làm bằng vàng hồng 21k. Đồng hồ có khả năng kháng nước ở độ sâu tối đa 120 mét.`
-
     }
 ]
 
@@ -1255,6 +1254,7 @@ function loadLocal(){
     if(ProductLocal==null)
     {
         localStorage.setItem('products',JSON.stringify(allProducts))
+        window.location.reload();
     }
 }
 loadLocal()                                                                                                                     
@@ -1707,7 +1707,9 @@ function Main() {
         listproducts.removeChild(listproducts.firstChild)
     }
     initProductsInf(allProducts);
-
+    listProduct=document.querySelectorAll('.content .products-card');
+    thisPage=1
+    loadItem(listProduct);
     container.style.display = "block";
     privacy.style.display = "block";
     slider.style.display = "block";
