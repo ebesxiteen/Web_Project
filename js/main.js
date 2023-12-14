@@ -1839,22 +1839,22 @@ searchInput.addEventListener('input',(e)=>{
     search.addEventListener('click',()=>{
         count=0;
         Main();
-        pagination.style.display = 'none';
         container.style.display = 'block';
         active.style.display = 'none';
         privacy.style.display = 'none';
         slider.style.display = 'none';
         footer.style.display='block';
-        changeTitle('Search Result'); 
-    
-    searchData=e.target.value.trim().toLowerCase();
-    //////console.log(searchData);
+        searchData=e.target.value.trim().toLowerCase();
+        console.log(searchData);
+        let searchList=[];
         productList.forEach((item,key)=>{
-        //////console.log(item.innerText);
+        console.log(item.innerText);
         if(item.innerText.toLowerCase().includes(searchData))
         {
-            listProduct[key].style.display="block";
+            // listProduct[key].style.display="block";
             count+=1;
+            searchList.push(allProducts[key]);
+            console.log(searchList);
         }
         else{
             listProduct[key].style.display="none";
@@ -1862,12 +1862,31 @@ searchInput.addEventListener('input',(e)=>{
         })
         if(count==0){
             changeTitle('No Search Result...'); 
+            pagination.style.display= 'none';
         }
-        else changeTitle('Search Result');
+        else {
+            changeTitle('Search Result');
+            console.log(searchList);
+            while (list.hasChildNodes()) {
+                list.removeChild(list.firstChild);
+            }
+            initApp(searchList);
+            listProduct = document.querySelectorAll('.content .products-card');
+            while (listproducts.hasChildNodes()) {
+                listproducts.removeChild(listproducts.firstChild)
+            }
+            initProductsInf(searchList);
+            loadItem(listProduct);
+            thisPage=1;
+            pagination.style.display = 'block';
+            
+            
+        }
+        
+        
         
         container.style.display='block';
-        //////console.log(type);
-        //////console.log(buyTicket);
+        let buyTicket = document.querySelectorAll('.products-card-click');
         for(let i=0;i<buyTicket.length;i++)
         {
          buyTicket[i].addEventListener('click',()=>{
@@ -1878,7 +1897,7 @@ searchInput.addEventListener('input',(e)=>{
         )
         }
 
-    // //////console.log(resultData);
+    // console.log(resultData);
 })
    
 searchInput.addEventListener('keypress',(e)=>{
@@ -1886,43 +1905,63 @@ searchInput.addEventListener('keypress',(e)=>{
     if (keycode == '13') {
         count=0;
         Main();
-        pagination.style.display = 'none';
         container.style.display = 'block';
         active.style.display = 'none';
         privacy.style.display = 'none';
         slider.style.display = 'none';
         footer.style.display='block';
         searchData=e.target.value.trim().toLowerCase();
-        //////console.log(searchData);
-            productList.forEach((item,key)=>{
-            //////console.log(item.innerText);
-            if(item.innerText.toLowerCase().includes(searchData))
-            {
-                listProduct[key].style.display="block";
-                count+=1;
+        console.log(searchData);
+        let searchList=[];
+        productList.forEach((item,key)=>{
+        console.log(item.innerText);
+        if(item.innerText.toLowerCase().includes(searchData))
+        {
+            // listProduct[key].style.display="block";
+            count+=1;
+            searchList.push(allProducts[key]);
+            console.log(searchList);
+        }
+        else{
+            listProduct[key].style.display="none";
+        }
+        })
+        if(count==0){
+            changeTitle('No Search Result...'); 
+            pagination.style.display= 'none';
+        }
+        else {
+            changeTitle('Search Result');
+            console.log(searchList);
+            while (list.hasChildNodes()) {
+                list.removeChild(list.firstChild);
             }
-            else{
-                listProduct[key].style.display="none";
+            initApp(searchList);
+            listProduct = document.querySelectorAll('.content .products-card');
+            while (listproducts.hasChildNodes()) {
+                listproducts.removeChild(listproducts.firstChild)
             }
-            })
-            if(count==0){
-                changeTitle('No Search Result...'); 
-            }
-            else changeTitle('Search Result');
+            initProductsInf(searchList);
+            loadItem(listProduct);
+            thisPage=1;
+            pagination.style.display = 'block';
             
-            container.style.display='block';
-            //////console.log(type);
-            //////console.log(buyTicket);
-            let buyTicket=document.querySelectorAll('.products-card-click');
-            for(let i=0;i<buyTicket.length;i++)
-            {
-             buyTicket[i].addEventListener('click',()=>{
-                    listproducts.children[i].classList.add('open');
-                    container.style.display='none';
-                    privacy.style.display='none';
-            }
-            )
-            }
+        }
+        
+        
+        
+        container.style.display='block';
+        let buyTicket = document.querySelectorAll('.products-card-click');
+        for(let i=0;i<buyTicket.length;i++)
+        {
+         buyTicket[i].addEventListener('click',()=>{
+                listproducts.children[i].classList.add('open');
+                container.style.display='none';
+                privacy.style.display='none';
+        }
+        )
+        }
+
 }
 })
    
