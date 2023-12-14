@@ -13,7 +13,7 @@ for (let i = 0; i < elementt.length; i++) {
             elementt[0].classList.add('active-func');
             elementt[1].classList.remove('active-func');
             elementt[2].classList.remove('active-func');
-            title_admin.innerText = "Quan ly san pham";
+            title_admin.innerText = "Quản lý sản phẩm";
         }
         else if (i == 1) {
             display[2].style.display = "block";
@@ -22,7 +22,7 @@ for (let i = 0; i < elementt.length; i++) {
             elementt[1].classList.add('active-func');
             elementt[0].classList.remove('active-func');
             elementt[2].classList.remove('active-func');
-            title_admin.innerText = "Quan ly don hang"
+            title_admin.innerText = "Quản lý đơn hàng"
         }
         else if (i == 2) {
             display[2].style.display = "none";
@@ -31,7 +31,7 @@ for (let i = 0; i < elementt.length; i++) {
             elementt[2].classList.add('active-func');
             elementt[1].classList.remove('active-func');
             elementt[0].classList.remove('active-func');
-            title_admin.innerText = "Quan ly khach hang"
+            title_admin.innerText = "Quản lý khách hàng"
         }
         else {
             window.location.href = "index.html"
@@ -56,7 +56,7 @@ displayUserData = function () {
         <td>${value.username}</td>
         <td>${value.password}</td>
         <td>Admin</td>
-          <td> <button class="display-body-table-btn" onclick="delete_user(event,${key})">Xoa</button>
+          <td> <button class="display-body-table-btn" onclick="delete_user(event,${key})">Xóa</button>
           </td>
         `;
        }
@@ -65,7 +65,7 @@ displayUserData = function () {
             <td>${value.username}</td>
             <td>${value.password}</td>
             <td>User</td>
-              <td> <button class="display-body-table-btn" onclick="delete_user(event,${key})">Xoa</button>
+              <td> <button class="display-body-table-btn" onclick="delete_user(event,${key})">Xóa</button>
               </td>
             `;
         }
@@ -94,8 +94,8 @@ displayProductData = function () {
               <td>${value.price.toLocaleString()}</td>
               <td>${value.brand}</td>
               <td>
-                <button class="display-body-table-btn display-body-table-btn-change">Sua</button>
-                <button class="display-body-table-btn" onclick="delete_products(event,${key})">Xoa</button>
+                <button class="display-body-table-btn display-body-table-btn-change">Sửa</button>
+                <button class="display-body-table-btn" onclick="delete_products(event,${key})">Xóa</button>
               </td>
               `;
               
@@ -116,26 +116,32 @@ displaycartData=function(){
             cartData=JSON.parse(localStorage.getItem(localStorage.key(i)))
             console.log(localStorage.key(i))
             console.log(cartData)
-            cartData.forEach((value,key)=>{
-                let newtr = document.createElement('tr');
-                newtr.innerHTML=`
-                <td>${k}</td>
-                <td>${localStorage.key(i)}</td>
-                <td>${value.time}</td>
-                <td>${value.status}</td>
-                <td>
-                  <button class="display-body-table-btn display-body-table-btn-detail" onclick="showDetailCart(${i},${key})">Chi tiet</button>
-                  <button class="display-body-table-btn" onclick="confirmCart(${i},${key})">Xac nhan</button>
-                  <button class="display-body-table-btn" onclick="cancelCart(${i},${key})">Huy</button>
-                </td>
-                `
-                displayTable[2].appendChild(newtr)
-            })
-            k+=1;
+            
+                cartData.forEach((value,key)=>{
+                    if(value!=null){
+
+                        let newtr = document.createElement('tr');
+                        newtr.innerHTML=`
+                        <td>${k}</td>
+                        <td>${localStorage.key(i)}</td>
+                        <td>${value.time}</td>
+                        <td>${value.status}</td>
+                        <td>
+                          <button class="display-body-table-btn display-body-table-btn-detail" onclick="showDetailCart(${i},${key})">Chi tiết</button>
+                          <button class="display-body-table-btn" onclick="confirmCart(${i},${key})">Xác nhận</button>
+                          <button class="display-body-table-btn" onclick="cancelCart(${i},${key})">Hủy</button>
+                        </td>
+                        `
+                        displayTable[2].appendChild(newtr)
+                        k+=1;
+                    }
+                })
+            
         }
     }
-
+    
 }
+let modalContainer=document.querySelector('.container-modal');
 displaycartData()
 
 let onDetail=document.querySelector('.detailproudct')
@@ -150,12 +156,12 @@ function cancelCart(i,keyCart){
         cartData.forEach((value,key)=>{
             if(key==keyCart)
             {
-                    if(value.status=='Don hang bi huy')
+                    if(value.status=='Đơn hàng bị hủy')
                     {
-                        alert("Don hang da bi huy")
+                        alert("Đơn hàng đã bị hủy") 
                     }
                     else {
-                        value.status='Don hang bi huy'
+                        value.status='Đơn hàng bị hủy'
                         localStorage.setItem(localStorage.key(i),JSON.stringify(cartData))
                     }
                     alert("LOADING........")
@@ -177,13 +183,13 @@ function confirmCart(i,keyCart){
         cartData.forEach((value,key)=>{
             if(key==keyCart)
             {
-                if(value.status=='Da them vao gio hang')
+                if(value.status=='Đã thêm vào giỏ hàng')
                 {
-                    alert("khach hang chua xac nhan")
+                    alert("Khách hàng chưa xác nhận")
                 }
                 else{
-                    value.status='Da xac nhan'
-                    alert("Da xac nhan")
+                    value.status='Đã xác nhận'
+                    alert("Đã xác nhận")
                     localStorage.setItem(localStorage.key(i),JSON.stringify(cartData))
                     alert("LOADING........")
                     window.location.reload()
@@ -225,7 +231,7 @@ function showDetailCart(i,keyCart)
                     displayDetailTable.appendChild(newtr)
                 }
                 else{
-                    alert("Nguoi dung da bi xoa")
+                    alert("Người dùng đã bị xóa")
                 }
             }
         })
@@ -242,7 +248,6 @@ function delete_products(event, number) {
         
         
 let changeProducts=document.querySelectorAll('.display-body-table-btn-change')
-let modalContainer=document.querySelector('.container-modal')
 let fixproduct=document.querySelector('.fixproduct')
 let hideProduct_fix_change=document.querySelector('.fixproduct-btn-hide-change')
 let hideProduct_fix_detail=document.querySelector('.fixproduct-btn-hide-detail')

@@ -7,6 +7,7 @@ let comebacklogin = document.querySelector('.auth-form_controls-back-login');
 let comebackregister = document.querySelector('.auth-form_controls-back-register');
 let transferRegister = document.querySelector('.auth-form_switch-btn-transferRegister');
 let transferLogin = document.querySelector('.auth-form_switch-btn-transferLogin');
+let footer=document.querySelector(".footer");
 function login() {
     if (modal.style.display == "none") {
         modal.style.display = "block";
@@ -566,7 +567,7 @@ let allProducts = [
     },
     {
         id: 37,
-        name: 'Đồng Hồ Rolex Cosmograph Daytona 40 116503-0009 Xà Cừ Tím Black Mother Of Pearl Dây Đeo Oyster Thép Vàng Vàng',
+        name: 'Đồng Hồ Rolex Cosmograph Daytona 40 116503-0009 Xà Cừ Tím Black Mother Of Pearl Dây Đeo Oyster Thép',
         image: 'rolex22.png',
         price: 1100000000,
         brand: `Rolex`,
@@ -1253,8 +1254,7 @@ function loadLocal(){
     ProductLocal=JSON.parse(localStorage.getItem('products'))
     if(ProductLocal==null)
     {
-        ProductLocal=localStorage.setItem('products',JSON.stringify(allProducts))
-        window.location.reload()
+        localStorage.setItem('products',JSON.stringify(allProducts))
     }
 }
 loadLocal()                                                                                                                     
@@ -1271,8 +1271,7 @@ function initApp(product) {
         list.appendChild(newDiv);
     });
 }
-// console.log(ProductLocal)
-initApp(ProductLocal);
+initApp( ProductLocal);
 let listProduct = document.querySelectorAll('.content .products-card');
 let thisPage = 1;
 let limit = 12;                              
@@ -1334,31 +1333,37 @@ btnClassify.forEach(btn => {
     btn.addEventListener('click', (value) => {
         let type = value.currentTarget.getAttribute('type');
         Type = type;
+        // console.log(Type)
         changeTitle(type+'\'s '+'Products');
         let filterData =ProductLocal.filter(function (brands) {
             return brands.brand == type;
         })
-        while (list.hasChildNodes()) {
-            list.removeChild(list.firstChild);
-        }
-        initApp(filterData);
-        
-        while (listproducts.hasChildNodes()) {
-            listproducts.removeChild(listproducts.firstChild)
-        }
+        // while (list.hasChildNodes()) {
+        //     list.removeChild(list.firstChild);
+        // }
+        // while (listproducts.hasChildNodes()) {
+            //     listproducts.removeChild(listproducts.firstChild)
+            // }
+            listproducts.innerText="";
+            list.innerText="";
+            initApp(filterData);
         initProductsInf(filterData);
+        footer.style.display = 'block';
         container.style.display = 'block';
         active.style.display = 'none';
         privacy.style.display = 'none';
         slider.style.display = 'none';
-        console.log(type);
+        footer.style.display='block';
+        //////console.log(type);
         let buyTicket = document.querySelectorAll('.products-card-click');
-        console.log(buyTicket);
+        //////console.log(buyTicket);
         // let listProductfilter=document.querySelectorAll('.content .products-card');
         pagination.style.display = 'none';
         showInfo(buyTicket, listproducts);
     })
 })
+
+
 
 let save = 0
 function showInfo(buyTickets, listproducts) {
@@ -1368,8 +1373,11 @@ function showInfo(buyTickets, listproducts) {
             listproducts.children[i].classList.add('open');
             container.style.display = 'none';
             privacy.style.display = 'none';
+
+            footer.style.display = 'none';
+
             save = i;
-            console.log(save);
+            //////console.log(save);
         }
         )
     }
@@ -1378,7 +1386,7 @@ showInfo(buyTickets, listproducts);
 initProductsInf(ProductLocal)
 function initProductsInf(product) {
     product.forEach((value, key) => {
-
+        
         let newDiv = document.createElement('div');
         newDiv.classList.add('product-info');
         newDiv.innerHTML = `<div class="main-wrapper">
@@ -1390,6 +1398,7 @@ function initProductsInf(product) {
               </div>
             </div>
             <div class="product-div-right">
+            <div class="product-text">
               <div class="product">
                 <span class="product-name">
                  ${value.name}</span
@@ -1421,6 +1430,7 @@ function initProductsInf(product) {
                     <td>${value.ShellMaterial}</td>
                   </tr>
                 </table>
+              </div>
               </div>
 
               <div class="btn-groups">
@@ -1548,11 +1558,72 @@ openShopping.addEventListener('click', () => {
     container.style.display = 'none';
     privacy.style.display = 'none';
     slider.style.display = 'none';
+    footer.style.display='none';
     listproducts.children[save].classList.remove('open');
 }
 )
-var btn_login = document.querySelector('.btn-login')
-let userCard
+
+let checkLogin = false;
+function addtoCard(key) {
+    userCard = JSON.parse(localStorage.getItem(usernameLoggedIn)) ||[];
+    if (checkLogin == false) {
+        alert("Bạn cần phải đăng nhập")
+    }
+    else {
+        // ////console.log(key)
+        let tmp = {
+            id: '',
+            img: '',
+            name: '',
+            time:'',
+            price: 0,
+            quantity: 0, 
+            status:'Đã thêm vào giỏ hàng'
+        }
+        let date =new Date();
+        if(Type=="Hublot"){
+            tmp.id = ProductLocal[key+64].id;
+            tmp.img = ProductLocal[key+64].image;
+            tmp.name = ProductLocal[key+64].name;
+            tmp.price = ProductLocal[key+64].price;
+            tmp.time=formatTime(date).toString();
+        }
+        else if(Type=="Rolex"){
+            tmp.id = ProductLocal[key+15].id;
+            tmp.img = ProductLocal[key+15].image;
+            tmp.name = ProductLocal[key+15].name;
+            tmp.price = ProductLocal[key+15].price;
+            tmp.time=formatTime(date).toString();
+        }
+        else if(Type=="RichardMille"){
+            tmp.id = ProductLocal[key+40].id;
+            tmp.img = ProductLocal[key+40].image;
+            tmp.name = ProductLocal[key+40].name;
+            tmp.price = ProductLocal[key+40].price;
+            tmp.time=formatTime(date).toString();   
+        }
+        else{
+            tmp.id = ProductLocal[key].id;
+            tmp.img = ProductLocal[key].image;
+            tmp.name = ProductLocal[key].name;
+            tmp.price = ProductLocal[key].price;
+            tmp.time=formatTime(date).toString();
+        }
+        let ucIndex = userCard.findIndex(uc => uc.id == tmp.id);
+        console.log(ucIndex)    
+        if (ucIndex != -1) {   
+            userCard[ucIndex].quantity += 1;
+            userCard[ucIndex].price = userCard[ucIndex].quantity * allProducts[key].price;
+        }
+        else {
+            tmp.quantity = 1;
+            userCard.push(tmp);
+        }
+        localStorage.setItem(usernameLoggedIn, JSON.stringify(userCard));
+        reloadCard()
+    }
+
+}
 function reloadCard() {
     let json = JSON.parse(localStorage.getItem(usernameLoggedIn));
     let count = 0;
@@ -1583,88 +1654,20 @@ function reloadCard() {
     total.innerText = totalPrice.toLocaleString();
     quantity.innerText = count;
 }
-// Login 
-btn_login.onclick = function () {
-    let username_login = document.querySelector('.auth-form_input-username_login').value;
-    let password_login = document.querySelector('.auth-form_input-password_login').value;
-    
-    var existingUsers = JSON.parse(localStorage.getItem('users')) || [];
-    var loggedInUser = existingUsers.find(u => u.username === username_login && u.password === password_login);
-    if (loggedInUser) {
-        alert("Dang nhap thanh cong")
-        if (loggedInUser.username == '0342301559') {
-            window.location.href = 'index2.html'
-        }
-        else {
-            checkLogin = true;
-            nav_list[2].style.display = 'none';
-            nav_list[3].style.display = 'flex';
-            modal.style.display = 'none';
-            changeUser.innerText = username_login;
-            usernameLoggedIn = JSON.stringify(username_login);
-            userCard= JSON.parse(localStorage.getItem(usernameLoggedIn)) ||[];
-            localStorage.setItem(usernameLoggedIn,JSON.stringify(userCard));
-            reloadCard()
-        }
-    }
-    else alert("Dang nhap that bai")
-    
-}
-
-
-let checkLogin = false;
-function addtoCard(key) {
-    if (checkLogin == false) {
-        alert("Ban can phai dang nhap")
-    }
-    else {
-        let tmp = {
-            id: '',
-            img: '',
-            name: '',
-            time:'',
-            price: 0,
-            quantity: 0, 
-            status:''
-        }
-        let date =new Date();
-        tmp.id = ProductLocal[key].id;
-        tmp.img = ProductLocal[key].image;
-        tmp.name = ProductLocal[key].name;
-        tmp.price = ProductLocal[key].price;
-        tmp.time=formatTime(date).toString();
-        tmp.status="Da them vao gio hang"
-        let ucIndex = userCard.findIndex(uc => uc.id == tmp.id);
-        if (ucIndex != -1) {
-            userCard[ucIndex].quantity += 1;
-            userCard[ucIndex].price = userCard[ucIndex].quantity * allProducts[key].price;
-        }
-        else {
-            tmp.quantity = 1;
-            userCard.push(tmp);
-        }
-
-        
-        console.log(userCard)
-        localStorage.setItem(usernameLoggedIn, JSON.stringify(userCard));
-        reloadCard()
-    }
-
-}
-
 function changeQuantity(key, quantity) {
     let json = JSON.parse(localStorage.getItem(usernameLoggedIn));
     if (quantity == 0) {
-        delete json[key]
+        // delete json[key];
+        json.splice(key,1);
+    ////console.log(json);
     }
     else {
         json[key].quantity = quantity;
         json[key].price = allProducts[key].price * quantity;
     }
     localStorage.setItem(usernameLoggedIn, JSON.stringify(json));
-
     reloadCard();
-    console.log(json)
+    //////console.log(json)
 }
 
 function Main() {
@@ -1677,20 +1680,23 @@ function Main() {
         listproducts.removeChild(listproducts.firstChild)
     }
     initProductsInf(allProducts);
-    let listProductmp = document.querySelectorAll('.content .products-card');
+
     container.style.display = "block";
     privacy.style.display = "block";
     slider.style.display = "block";
     active.style.display = 'none';
+    
     listproducts.children[save].classList.remove('open');
     let buyTicketsMain = document.querySelectorAll('.products-card-click');
     showInfo(buyTicketsMain, listproducts);
+    footer.style.display= 'block';
+    changeTitle("ALL PRODUCTS");
 }
 
 
 // Register
 var btn_register = document.querySelector('.btn-register')
-
+var btn_login = document.querySelector('.btn-login')
 var regexPhone = /(0[9|3])+([0-9]{8})\b/g;
 var check = true;
 function regex(phone) {
@@ -1726,10 +1732,10 @@ btn_register.onclick = function () {
     }
 
     if (!regex(username_register)) {
-        alert("So dien thoai khong hop le")
+        alert("Số điện thoại không hợp lệ")
     }
     else if (JSON.stringify(password_register) == null || JSON.stringify(password_verify_register) == null || JSON.stringify(password_register) != JSON.stringify(password_verify_register)) {
-        alert("Mat khau chua duoc xac thuc hoac bo trong")
+        alert("Mật khẩu chưa được xác thực hoặc bỏ trống")
     }
     else {
 
@@ -1738,7 +1744,7 @@ btn_register.onclick = function () {
 
         // Save the updated user array to localStorage
         localStorage.setItem('users', JSON.stringify(existingUsers));
-        alert("Dang ki thanh cong")
+        alert("Đăng kí thành công")
     }
 }
 
@@ -1786,13 +1792,112 @@ function formatTime(date){
     let json = JSON.parse(localStorage.getItem(usernameLoggedIn));
     json.forEach((value, key) => {
         if (value != null) {
-          value.status="cho xac nhan";
+          value.status="Chờ xác nhận";
         }
     })
     localStorage.setItem(usernameLoggedIn,JSON.stringify(json))
     reloadCard()
 })
 
+
+
 function changeTitle(value){
     document.getElementById('title').innerHTML=value;
 }
+
+let productList=document.querySelectorAll('.product-text');
+let searchInput=document.querySelector('.search input');
+let dem;
+searchInput.addEventListener('input',(e)=>{
+    let search=document.getElementById('search-ic');
+    search.addEventListener('click',()=>{
+        dem=0;
+        Main();
+        pagination.style.display = 'none';
+        container.style.display = 'block';
+        active.style.display = 'none';
+        privacy.style.display = 'none';
+        slider.style.display = 'none';
+        footer.style.display='block';
+        changeTitle('Search Result'); 
+    
+    searchData=e.target.value.trim().toLowerCase();
+    //////console.log(searchData);
+        productList.forEach((item,key)=>{
+        //////console.log(item.innerText);
+        if(item.innerText.toLowerCase().includes(searchData))
+        {
+            listProduct[key].style.display="block";
+            dem+=1;
+        }
+        else{
+            listProduct[key].style.display="none";
+        }
+        })
+        if(dem==0){
+            changeTitle('No Search Result...'); 
+        }
+        else changeTitle('Search Result');
+        
+        container.style.display='block';
+        //////console.log(type);
+        //////console.log(buyTicket);
+        for(let i=0;i<buyTicket.length;i++)
+        {
+         buyTicket[i].addEventListener('click',()=>{
+                listproducts.children[i].classList.add('open');
+                container.style.display='none';
+                privacy.style.display='none';
+        }
+        )
+        }
+
+    // //////console.log(resultData);
+})
+   
+searchInput.addEventListener('keypress',(e)=>{
+    var keycode = (e.keyCode ? e.keyCode : e.which);
+    if (keycode == '13') {
+        dem=0;
+        Main();
+        pagination.style.display = 'none';
+        container.style.display = 'block';
+        active.style.display = 'none';
+        privacy.style.display = 'none';
+        slider.style.display = 'none';
+        footer.style.display='block';
+        
+        searchData=e.target.value.trim().toLowerCase();
+        //////console.log(searchData);
+            productList.forEach((item,key)=>{
+            //////console.log(item.innerText);
+            if(item.innerText.toLowerCase().includes(searchData))
+            {
+                listProduct[key].style.display="block";
+                dem+=1;
+            }
+            else{
+                listProduct[key].style.display="none";
+            }
+            })
+            if(dem==0){
+                changeTitle('No Search Result...'); 
+            }
+            else changeTitle('Search Result');
+            
+            container.style.display='block';
+            //////console.log(type);
+            //////console.log(buyTicket);
+            for(let i=0;i<buyTicket.length;i++)
+            {
+             buyTicket[i].addEventListener('click',()=>{
+                    listproducts.children[i].classList.add('open');
+                    container.style.display='none';
+                    privacy.style.display='none';
+            }
+            )
+            }
+}
+})
+   
+})
