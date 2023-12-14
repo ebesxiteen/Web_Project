@@ -1610,7 +1610,7 @@ function addtoCard(key) {
             tmp.time=formatTime(date).toString();
         }
         let ucIndex = userCard.findIndex(uc => uc.id == tmp.id);
-        console.log(ucIndex)    
+        // console.log(ucIndex)    
         if (ucIndex != -1) {   
             userCard[ucIndex].quantity += 1;
             userCard[ucIndex].price = userCard[ucIndex].quantity * allProducts[key].price;
@@ -1628,9 +1628,7 @@ function reloadCard() {
     let json = JSON.parse(localStorage.getItem(usernameLoggedIn));
     let count = 0;
     let totalPrice = 0;
-    while (listCard.hasChildNodes()) {
-        listCard.removeChild(listCard.firstChild);
-    }
+    listCard.innerText="";
     json.forEach((value, key) => {
         if (value != null) {
             totalPrice = totalPrice + value.price;
@@ -1653,6 +1651,35 @@ function reloadCard() {
     })
     total.innerText = totalPrice.toLocaleString();
     quantity.innerText = count;
+}
+let userCard
+var btn_login = document.querySelector('.btn-login')
+// Login 
+btn_login.onclick = function () {
+    let username_login = document.querySelector('.auth-form_input-username_login').value;
+    let password_login = document.querySelector('.auth-form_input-password_login').value;
+
+    var existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+    var loggedInUser = existingUsers.find(u => u.username === username_login && u.password === password_login);
+    if (loggedInUser) {
+        alert("Dang nhap thanh cong")
+        if (loggedInUser.username == '0342301559') {
+            window.location.href = 'index2.html'
+        }
+        else {
+            checkLogin = true;
+            nav_list[2].style.display = 'none';
+            nav_list[3].style.display = 'flex';
+            modal.style.display = 'none';
+            changeUser.innerText = username_login;
+            usernameLoggedIn = JSON.stringify(username_login);
+            userCard= JSON.parse(localStorage.getItem(usernameLoggedIn)) ||[];
+            localStorage.setItem(usernameLoggedIn,JSON.stringify(userCard));
+            reloadCard()
+        }
+    }
+    else alert("Dang nhap that bai")
+
 }
 function changeQuantity(key, quantity) {
     let json = JSON.parse(localStorage.getItem(usernameLoggedIn));
@@ -1696,7 +1723,7 @@ function Main() {
 
 // Register
 var btn_register = document.querySelector('.btn-register')
-var btn_login = document.querySelector('.btn-login')
+
 var regexPhone = /(0[9|3])+([0-9]{8})\b/g;
 var check = true;
 function regex(phone) {

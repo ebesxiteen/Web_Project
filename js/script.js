@@ -114,8 +114,8 @@ displaycartData=function(){
         if(regex(localStorage.key(i)))
         {   
             cartData=JSON.parse(localStorage.getItem(localStorage.key(i)))
-            console.log(localStorage.key(i))
-            console.log(cartData)
+            // console.log(localStorage.key(i))
+            // console.log(cartData)
             
                 cartData.forEach((value,key)=>{
                     if(value!=null){
@@ -147,12 +147,12 @@ displaycartData()
 let onDetail=document.querySelector('.detailproudct')
 
 function cancelCart(i,keyCart){
-    console.log(i)
-    console.log(keyCart)
+    // console.log(i)
+    // console.log(keyCart)
     if(regex(localStorage.key(i)))
     {
         let cartData=JSON.parse(localStorage.getItem(localStorage.key(i)))
-        console.log(cartData)
+        // console.log(cartData)
         cartData.forEach((value,key)=>{
             if(key==keyCart)
             {
@@ -160,12 +160,16 @@ function cancelCart(i,keyCart){
                     {
                         alert("Đơn hàng đã bị hủy") 
                     }
+                    else if(value.status=='Đã thêm vào giỏ hàng')
+                    {
+                        alert("Đơn hàng chưa được đặt")
+                    }
                     else {
                         value.status='Đơn hàng bị hủy'
                         localStorage.setItem(localStorage.key(i),JSON.stringify(cartData))
+                        alert("LOADING........")
+                        window.location.reload()
                     }
-                    alert("LOADING........")
-                    window.location.reload()
             }
         })
     }
@@ -174,18 +178,22 @@ function cancelCart(i,keyCart){
 }
 function confirmCart(i,keyCart){
     
-    console.log(i)
-    console.log(keyCart)
+    // console.log(i)
+    // console.log(keyCart)
     if(regex(localStorage.key(i)))
     {
         let cartData=JSON.parse(localStorage.getItem(localStorage.key(i)))
-        console.log(cartData)
+        // console.log(cartData)
         cartData.forEach((value,key)=>{
             if(key==keyCart)
             {
                 if(value.status=='Đã thêm vào giỏ hàng')
                 {
                     alert("Khách hàng chưa xác nhận")
+                }
+                else if(value.status=='Đơn hàng bị hủy')
+                {
+                    alert("Đơn hàng đã bị hủy")
                 }
                 else{
                     value.status='Đã xác nhận'
@@ -209,12 +217,12 @@ function showDetailCart(i,keyCart)
     while (displayDetailTable.hasChildNodes()) {
         displayDetailTable.removeChild(displayDetailTable.firstChild);
     }
-    console.log(i)
-    console.log(keyCart)
+    // console.log(i)
+    // console.log(keyCart)
     if(regex(localStorage.key(i)))
     {
         let cartData=JSON.parse(localStorage.getItem(localStorage.key(i)))
-        console.log(cartData)
+        // console.log(cartData)
         cartData.forEach((value,key)=>{
             if(key==keyCart)
             {
