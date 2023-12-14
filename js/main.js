@@ -1331,34 +1331,31 @@ let pagination = document.querySelector('.listPage');
 let Type;
 btnClassify.forEach(btn => {
     btn.addEventListener('click', (value) => {
-        let type = value.currentTarget.getAttribute('type');
-        Type = type;
-        // console.log(Type)
-        changeTitle(type+'\'s '+'Products');
-        let filterData =ProductLocal.filter(function (brands) {
-            return brands.brand == type;
-        })
-        // while (list.hasChildNodes()) {
-        //     list.removeChild(list.firstChild);
-        // }
-        // while (listproducts.hasChildNodes()) {
-            //     listproducts.removeChild(listproducts.firstChild)
-            // }
-            listproducts.innerText="";
-            list.innerText="";
-            initApp(filterData);
-        initProductsInf(filterData);
-        footer.style.display = 'block';
         container.style.display = 'block';
         active.style.display = 'none';
         privacy.style.display = 'none';
         slider.style.display = 'none';
         footer.style.display='block';
+        thisPage = 1;
+        let type = value.currentTarget.getAttribute('type');
+        Type = type;
+        changeTitle(type+'\'s '+'Products');
+        let filterData =ProductLocal.filter(function (brands) {
+            return brands.brand == type;
+        })
+
+        listproducts.innerText="";
+        list.innerText="";
+        initApp(filterData);
+         listProduct=document.querySelectorAll('.content .products-card');
+        loadItem(listProduct)
+        initProductsInf(filterData);
+        
         //////console.log(type);
         let buyTicket = document.querySelectorAll('.products-card-click');
         //////console.log(buyTicket);
         // let listProductfilter=document.querySelectorAll('.content .products-card');
-        pagination.style.display = 'none';
+        pagination.style.display = 'block';
         showInfo(buyTicket, listproducts);
     })
 })
@@ -1836,11 +1833,11 @@ function changeTitle(value){
 
 let productList=document.querySelectorAll('.product-text');
 let searchInput=document.querySelector('.search input');
-let dem;
+let count;
 searchInput.addEventListener('input',(e)=>{
     let search=document.getElementById('search-ic');
     search.addEventListener('click',()=>{
-        dem=0;
+        count=0;
         Main();
         pagination.style.display = 'none';
         container.style.display = 'block';
@@ -1857,13 +1854,13 @@ searchInput.addEventListener('input',(e)=>{
         if(item.innerText.toLowerCase().includes(searchData))
         {
             listProduct[key].style.display="block";
-            dem+=1;
+            count+=1;
         }
         else{
             listProduct[key].style.display="none";
         }
         })
-        if(dem==0){
+        if(count==0){
             changeTitle('No Search Result...'); 
         }
         else changeTitle('Search Result');
@@ -1887,7 +1884,7 @@ searchInput.addEventListener('input',(e)=>{
 searchInput.addEventListener('keypress',(e)=>{
     var keycode = (e.keyCode ? e.keyCode : e.which);
     if (keycode == '13') {
-        dem=0;
+        count=0;
         Main();
         pagination.style.display = 'none';
         container.style.display = 'block';
@@ -1895,7 +1892,6 @@ searchInput.addEventListener('keypress',(e)=>{
         privacy.style.display = 'none';
         slider.style.display = 'none';
         footer.style.display='block';
-        
         searchData=e.target.value.trim().toLowerCase();
         //////console.log(searchData);
             productList.forEach((item,key)=>{
@@ -1903,13 +1899,13 @@ searchInput.addEventListener('keypress',(e)=>{
             if(item.innerText.toLowerCase().includes(searchData))
             {
                 listProduct[key].style.display="block";
-                dem+=1;
+                count+=1;
             }
             else{
                 listProduct[key].style.display="none";
             }
             })
-            if(dem==0){
+            if(count==0){
                 changeTitle('No Search Result...'); 
             }
             else changeTitle('Search Result');
@@ -1917,6 +1913,7 @@ searchInput.addEventListener('keypress',(e)=>{
             container.style.display='block';
             //////console.log(type);
             //////console.log(buyTicket);
+            let buyTicket=document.querySelectorAll('.products-card-click');
             for(let i=0;i<buyTicket.length;i++)
             {
              buyTicket[i].addEventListener('click',()=>{
