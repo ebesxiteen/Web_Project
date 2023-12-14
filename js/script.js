@@ -244,7 +244,8 @@ function delete_products(event, number) {
 let changeProducts=document.querySelectorAll('.display-body-table-btn-change')
 let modalContainer=document.querySelector('.container-modal')
 let fixproduct=document.querySelector('.fixproduct')
-let hideProduct_fix=document.querySelector('.fixproduct-btn-hide')
+let hideProduct_fix_change=document.querySelector('.fixproduct-btn-hide-change')
+let hideProduct_fix_detail=document.querySelector('.fixproduct-btn-hide-detail')
 let save_fix;
 for(let i=0;i<changeProducts.length;i++)
 {   
@@ -255,9 +256,13 @@ for(let i=0;i<changeProducts.length;i++)
         save_fix=i
     }
 }
-hideProduct_fix.addEventListener("click",function(){
+hideProduct_fix_change.addEventListener("click",function(){
     modalContainer.style.display='none';
     fixproduct.style.display='none';
+})
+hideProduct_fix_detail.addEventListener("click",function(){
+    modalContainer.style.display='none';
+    onDetail.style.display='none';
 })
 
 let loadProduct_fixed=document.querySelector('.fixproduct-load')
@@ -287,6 +292,7 @@ loadProduct_fixed.onclick=function(){
         }
     })
     localStorage.setItem("products",JSON.stringify(json))
+    window.location.reload()
 }
 let addProduct=document.querySelector('.addproduct')
 let pushProduct=document.querySelector('.display-body-title-btn')

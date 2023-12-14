@@ -1,5 +1,4 @@
 let usernameLoggedIn;
-let userCard = JSON.parse(localStorage.getItem(usernameLoggedIn)) ||[];
 let list = document.querySelector('.content');
 let modal = document.querySelector('.modal');
 let registers = document.querySelector('.modal_body-middle-register');
@@ -1254,7 +1253,8 @@ function loadLocal(){
     ProductLocal=JSON.parse(localStorage.getItem('products'))
     if(ProductLocal==null)
     {
-        localStorage.setItem('products',JSON.stringify(allProducts))
+        ProductLocal=localStorage.setItem('products',JSON.stringify(allProducts))
+        window.location.reload()
     }
 }
 loadLocal()                                                                                                                     
@@ -1551,6 +1551,66 @@ openShopping.addEventListener('click', () => {
     listproducts.children[save].classList.remove('open');
 }
 )
+var btn_login = document.querySelector('.btn-login')
+let userCard
+function reloadCard() {
+    let json = JSON.parse(localStorage.getItem(usernameLoggedIn));
+    let count = 0;
+    let totalPrice = 0;
+    while (listCard.hasChildNodes()) {
+        listCard.removeChild(listCard.firstChild);
+    }
+    json.forEach((value, key) => {
+        if (value != null) {
+            totalPrice = totalPrice + value.price;
+            count = count + value.quantity;
+            let newDiv = document.createElement('li');
+            newDiv.innerHTML = `
+           <img src="./assets/img/All/${value.img}" class="products_card-img">
+           <div>${value.name}</div>
+           <div> ${value.price.toLocaleString()}</div>
+           <div class="pending" >${value.status}</div>
+           <div>${value.time}</div>
+           <div class="btn-quantity"> 
+           <button onclick="changeQuantity(${key},${value.quantity - 1})">-</button>
+           <div>${value.quantity}</div>
+            <button onclick="changeQuantity(${key},${value.quantity + 1})">+</button>
+            </div>
+           `
+            listCard.appendChild(newDiv);
+        }
+    })
+    total.innerText = totalPrice.toLocaleString();
+    quantity.innerText = count;
+}
+// Login 
+btn_login.onclick = function () {
+    let username_login = document.querySelector('.auth-form_input-username_login').value;
+    let password_login = document.querySelector('.auth-form_input-password_login').value;
+    
+    var existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+    var loggedInUser = existingUsers.find(u => u.username === username_login && u.password === password_login);
+    if (loggedInUser) {
+        alert("Dang nhap thanh cong")
+        if (loggedInUser.username == '0342301559') {
+            window.location.href = 'index2.html'
+        }
+        else {
+            checkLogin = true;
+            nav_list[2].style.display = 'none';
+            nav_list[3].style.display = 'flex';
+            modal.style.display = 'none';
+            changeUser.innerText = username_login;
+            usernameLoggedIn = JSON.stringify(username_login);
+            userCard= JSON.parse(localStorage.getItem(usernameLoggedIn)) ||[];
+            localStorage.setItem(usernameLoggedIn,JSON.stringify(userCard));
+            reloadCard()
+        }
+    }
+    else alert("Dang nhap that bai")
+    
+}
+
 
 let checkLogin = false;
 function addtoCard(key) {
@@ -1591,36 +1651,7 @@ function addtoCard(key) {
     }
 
 }
-function reloadCard() {
-    let json = JSON.parse(localStorage.getItem(usernameLoggedIn));
-    let count = 0;
-    let totalPrice = 0;
-    while (listCard.hasChildNodes()) {
-        listCard.removeChild(listCard.firstChild);
-    }
-    json.forEach((value, key) => {
-        if (value != null) {
-            totalPrice = totalPrice + value.price;
-            count = count + value.quantity;
-            let newDiv = document.createElement('li');
-            newDiv.innerHTML = `
-           <img src="./assets/img/All/${value.img}" class="products_card-img">
-           <div>${value.name}</div>
-           <div> ${value.price.toLocaleString()}</div>
-           <div class="pending" >${value.status}</div>
-           <div>${value.time}</div>
-           <div class="btn-quantity"> 
-           <button onclick="changeQuantity(${key},${value.quantity - 1})">-</button>
-           <div>${value.quantity}</div>
-            <button onclick="changeQuantity(${key},${value.quantity + 1})">+</button>
-            </div>
-           `
-            listCard.appendChild(newDiv);
-        }
-    })
-    total.innerText = totalPrice.toLocaleString();
-    quantity.innerText = count;
-}
+
 function changeQuantity(key, quantity) {
     let json = JSON.parse(localStorage.getItem(usernameLoggedIn));
     if (quantity == 0) {
@@ -1646,7 +1677,7 @@ function Main() {
         listproducts.removeChild(listproducts.firstChild)
     }
     initProductsInf(allProducts);
-
+    let listProductmp = document.querySelectorAll('.content .products-card');
     container.style.display = "block";
     privacy.style.display = "block";
     slider.style.display = "block";
@@ -1659,7 +1690,7 @@ function Main() {
 
 // Register
 var btn_register = document.querySelector('.btn-register')
-var btn_login = document.querySelector('.btn-login')
+
 var regexPhone = /(0[9|3])+([0-9]{8})\b/g;
 var check = true;
 function regex(phone) {
@@ -1711,37 +1742,7 @@ btn_register.onclick = function () {
     }
 }
 
-// Login 
-btn_login.onclick = function () {
-    let username_login = document.querySelector('.auth-form_input-username_login').value;
-    let password_login = document.querySelector('.auth-form_input-password_login').value;
 
-    console.log(username_login)
-    console.log(password_login)
-
-    var existingUsers = JSON.parse(localStorage.getItem('users')) || [];
-    var loggedInUser = existingUsers.find(u => u.username === username_login && u.password === password_login);
-    if (loggedInUser) {
-        alert("Dang nhap thanh cong")
-        if (loggedInUser.username == '0342301559') {
-            window.location.href = 'index2.html'
-        }
-        else {
-            checkLogin = true;
-            nav_list[2].style.display = 'none';
-            nav_list[3].style.display = 'flex';
-            modal.style.display = 'none';
-            changeUser.innerText = username_login;
-            usernameLoggedIn = JSON.stringify(username_login);
-            localStorage.setItem(usernameLoggedIn,userCard);
-      
-            console.log(userCard)
-            reloadCard()
-        }
-    }
-    else alert("Dang nhap that bai")
-
-}
 let changeUser = document.querySelector('.header_navbar-item-username');
 let nav_list = document.querySelectorAll('.header_navbar-list')
 
